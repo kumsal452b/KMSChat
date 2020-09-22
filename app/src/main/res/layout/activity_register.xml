@@ -2,48 +2,57 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reg_create_account"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="404dp"
+        android:layout_height="46dp"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="135dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reg_display"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/display_naem" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="341dp">
+        tools:layout_editor_absoluteY="263dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reg_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/reg_email"
-        android:layout_width="410dp"
-        android:layout_height="68dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="209dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="385dp"
-            android:layout_height="55dp"
-            android:hint="hint" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/reg_displayname"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="117dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="404dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/reg_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint" />
+            android:hint="Pasword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Create Account"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="480dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
