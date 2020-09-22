@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">KMSChat</string>
+    <string name="a_need_new_account">A need New Account?</string>
 </resources>

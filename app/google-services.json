@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "137362768782",
+    "firebase_url": "https://kmschat-b443e.firebaseio.com",
+    "project_id": "kmschat-b443e",
+    "storage_bucket": "kmschat-b443e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137362768782:android:fa951815b7e81085e1dadf",
+        "android_client_info": {
+          "package_name": "com.kumsal.kmschat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137362768782-4ld3pqe630aa6uru0td6j31aukcthm97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6-tTQPAOf3zsk0uc8yxW6xo4-8rrghzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137362768782-4ld3pqe630aa6uru0td6j31aukcthm97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
