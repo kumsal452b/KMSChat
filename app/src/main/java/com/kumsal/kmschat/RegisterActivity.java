@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar  toolbar;
     private ActionBarDrawerToggle togle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.register_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth=FirebaseAuth.getInstance();
         regBtn.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +53,12 @@ public class RegisterActivity extends AppCompatActivity {
                 register_user(display,email,password1);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+
     }
 
     private void register_user(String display, String email, String password1) {
