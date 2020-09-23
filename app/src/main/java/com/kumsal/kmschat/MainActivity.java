@@ -7,10 +7,12 @@ import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.jfoenix.controls.JFXButton;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
+    JFXButton button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
