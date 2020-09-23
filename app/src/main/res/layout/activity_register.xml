@@ -8,9 +8,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/reg_display"
-        android:layout_width="396dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="365dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="140dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,27 +18,35 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
             android:hint="@string/display_naem" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/reg_email"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="361dp"
+        android:layout_height="55dp"
         android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/reg_display"
         app:layout_constraintTop_toBottomOf="@+id/reg_display">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:hint="@string/email" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <include
+        android:id="@+id/register_toolbar"
+        layout="@layout/app_toolbar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/reg_password"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="51dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +62,23 @@
         android:id="@+id/reg_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorAccent"
         android:text="Create Account"
+        android:textColor="#FBFBFB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_password" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Create a New Account"
+        android:textColor="#120505"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/reg_display"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_toolbar" />
 </androidx.constraintlayout.widget.ConstraintLayout>

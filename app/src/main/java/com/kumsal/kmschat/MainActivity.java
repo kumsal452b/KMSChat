@@ -8,18 +8,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
-
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.jfoenix.controls.JFXButton;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
-    JFXButton button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,10 +29,14 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user=mAuth.getCurrentUser();
         if (user==null){
-            Intent intent=new Intent(this,StartActivity.class);
-            startActivity(intent);
-            finish();
+           startTostart();
         }
+    }
+
+    private void startTostart() {
+        Intent intent=new Intent(this,StartActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -55,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Deneme", Toast.LENGTH_SHORT).show();
         }
         if (item.getItemId()==R.id.menu_logout){
+
+            FirebaseUser user=mAuth.getCurrentUser();
+            FirebaseAuth.getInstance().signOut();
+            startTostart();
 
         }
         if (item.getItemId()==R.id.menu_setings){
