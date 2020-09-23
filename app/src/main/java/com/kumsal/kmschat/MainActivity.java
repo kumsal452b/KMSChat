@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
-        mToolbar=findViewById(R.id.main_app_bar);
+        mToolbar=findViewById(R.id.main_page_toolbar);
 
         setSupportActionBar(mToolbar);
+
         getSupportActionBar().setTitle("KMSChat");
 
     }
