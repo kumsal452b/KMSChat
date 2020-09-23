@@ -3,4 +3,5 @@
     <string name="a_need_new_account">A need New Account?</string>
     <string name="display_naem">Display naem</string>
     <string name="email">Email</string>
+    <string name="log_out">Log out</string>
 </resources>
