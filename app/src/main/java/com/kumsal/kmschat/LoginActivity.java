@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         progressDialog.hide();
                         Intent main_Intent=new Intent(getApplicationContext(),MainActivity.class);
+                        main_Intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(main_Intent);
                         finish();
                     }

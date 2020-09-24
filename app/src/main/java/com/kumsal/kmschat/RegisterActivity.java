@@ -83,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                             public void onSuccess(AuthResult authResult) {
                                 mProgresDialog.dismiss();
                                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(myIntent);
                                 finish();
                             }
