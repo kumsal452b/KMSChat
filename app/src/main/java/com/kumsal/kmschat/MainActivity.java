@@ -27,14 +27,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
         mToolbar=findViewById(R.id.main_page_toolbar);
-        tabLayout=findViewById(R.id.main_tabs);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("KMSChat");
 
         mViewPager=findViewById(R.id.main_pageview);
         mPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
-        tabLayout1=findViewById(R.id.main_tabs);
+        tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
     }
 
