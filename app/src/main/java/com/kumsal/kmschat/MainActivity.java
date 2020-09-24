@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private SectionPagerAdapter mPagerAdapter;
     private TableLayout tabLayout;
+    private TabLayout tabLayout1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager=findViewById(R.id.main_pageview);
         mPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
-        tabLayout.addView(mViewPager);
-        
+        tabLayout1=findViewById(R.id.main_tabs);
+        tabLayout1.setupWithViewPager(mViewPager);
     }
 
     @Override

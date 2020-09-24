@@ -18,11 +18,10 @@
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_toolbar_layout" />
-
-        <TableLayout
+        <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TableLayout>
+            android:layout_height="wrap_content"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
