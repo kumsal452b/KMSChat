@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         if (item.getItemId()==R.id.menu_setings){
+            Intent setingIntent=new Intent(MainActivity.this,SetingActivity.class);
+
 
         }
         return super.onOptionsItemSelected(item);
