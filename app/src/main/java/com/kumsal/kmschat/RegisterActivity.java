@@ -96,12 +96,24 @@ public class RegisterActivity extends AppCompatActivity {
                                 values.put("status","Hi there, I'm using KMSChat");
                                 values.put("imagesUrl","");
                                 values.put("thumbalimage","");
-                                mrefDatabase.child("Users").child(UserKey).setValue(values);
-//                                mProgresDialog.dismiss();
-//                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-//                                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                startActivity(myIntent);
-//                                finish();
+                                mrefDatabase.child("Users").child(UserKey).setValue(values).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        mProgresDialog.dismiss();
+                                        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                        myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(myIntent);
+                                        finish();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        mProgresDialog.hide();
+                                        Toast.makeText(RegisterActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+//
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
