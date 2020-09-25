@@ -56,10 +56,12 @@
         android:id="@+id/seting_hi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/seting_statusimage"
+        android:layout_below="@+id/seting_displayname"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="107dp"
-        android:layout_marginBottom="322dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="109dp"
         android:text="Hi there! I'm using KMSChat App"
         android:textColor="#FFFFFF" />
 
