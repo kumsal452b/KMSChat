@@ -36,7 +36,7 @@ public class SetingActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(SetingActivity.this, "hata", Toast.LENGTH_SHORT).show();
             }
         });
     }
