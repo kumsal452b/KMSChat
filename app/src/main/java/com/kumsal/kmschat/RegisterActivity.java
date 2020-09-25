@@ -24,6 +24,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,6 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Toolbar  toolbar;
     private ActionBarDrawerToggle togle;
     private ProgressDialog mProgresDialog;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mrefDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,20 +78,30 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
-    private void register_user(String display, String email, String password1) {
+    private void register_user(final String display, String email, String password1) {
 
         mAuth.createUserWithEmailAndPassword(email, password1)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull final Task<AuthResult> task) {
                         task.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
                             public void onSuccess(AuthResult authResult) {
-                                mProgresDialog.dismiss();
-                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(myIntent);
-                                finish();
+                                FirebaseUser currentuser=FirebaseAuth.getInstance().getCurrentUser();
+                                String UserKey=currentuser.getUid();
+                                mDatabase=FirebaseDatabase.getInstance();
+                                mrefDatabase=mDatabase.getReference();
+                                HashMap<String,String> values=new HashMap<>();
+                                values.put("name",display);
+                                values.put("status","Hi there, I'm using KMSChat");
+                                values.put("imagesUrl","");
+                                values.put("thumbalimage","");
+                                mrefDatabase.child("Users").child(UserKey).setValue(values);
+//                                mProgresDialog.dismiss();
+//                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+//                                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                                startActivity(myIntent);
+//                                finish();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
