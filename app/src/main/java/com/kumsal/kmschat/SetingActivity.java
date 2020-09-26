@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -49,6 +50,7 @@ public class SetingActivity extends AppCompatActivity {
     private Button changestatus;
     private Button changeimage;
     private StorageReference mStorageRef;
+    private ProgressDialog mProgresDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -135,26 +137,22 @@ public class SetingActivity extends AppCompatActivity {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
+                mProgresDialog=new ProgressDialog(getApplicationContext());
+                mProgresDialog.setTitle("Uploading Image");
+                mProgresDialog.setMessage("Please wait while we upload and procces the image");
+                mProgresDialog.show();
                 Uri resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
                 UUID uniqkey=UUID.randomUUID();
 
                 mStorageRef.child(uniqkey.toString()).putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull final Task<UploadTask.TaskSnapshot> task) {
-                            mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    mRefDatabase.child("imagesUrl").setValue(uri.toString());
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()){
+                            String dowloadurl=mStorageRef.getDownloadUrl().toString();
+                            System.out.println(dowloadurl);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(SetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
+                        }
                     }
                 });
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
