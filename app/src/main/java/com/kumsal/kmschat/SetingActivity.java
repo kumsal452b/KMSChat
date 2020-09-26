@@ -11,8 +11,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,13 +34,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class SetingActivity extends AppCompatActivity {
 
@@ -51,6 +58,8 @@ public class SetingActivity extends AppCompatActivity {
     private Button changeimage;
     private StorageReference mStorageRef;
     private ProgressDialog mProgresDialog;
+    private FirebaseStorage imageStorage = FirebaseStorage.getInstance();
+    private StorageTask<UploadTask.TaskSnapshot> storageTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -144,35 +153,30 @@ public class SetingActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
                 UUID uniqkey=UUID.randomUUID();
-
-                final StorageReference mPath=mStorageRef.child("profile_images").child(uniqkey.toString()+".jpg");
-                mStorageRef.child(uniqkey.toString()).putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                File file = new File(resultUri.getPath());
+                //Bu kadar
+                String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
+                final StorageReference filePath = imageStorage.getReference().child("profile_image")
+                        .child(filename+".jpeg");
+                storageTask = filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()){
-                            mProgresDialog.hide();
-
-                           mPath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                               @Override
-                               public void onSuccess(Uri uri) {
-                                   System.out.println(uri.toString());
-                               }
-                           }).addOnFailureListener(new OnFailureListener() {
-                               @Override
-                               public void onFailure(@NonNull Exception e) {
-                                   Toast.makeText(SetingActivity.this, e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
-                               }
-                           });
-
-
-                        }
+                    if (task.isSuccessful()){
+                        filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+                                mProgresDialog.dismiss();
+                                Log.d("urş", "onSuccess: "+url);
+                            }
+                        });//çalıitırsana
                     }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        System.out.println("Deneme "+taskSnapshot.getStorage().getDownloadUrl());;
                     }
                 });
+
+
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
