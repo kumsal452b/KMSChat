@@ -7,7 +7,7 @@
     tools:context=".LoginActivity">
     <include layout="@layout/app_toolbar_layout" android:id="@+id/login_page_toolbar"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+ <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/login_email"
         android:layout_width="346dp"
         android:layout_height="56dp"
@@ -57,7 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/button_back"
+
         android:text="Login"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/login_password"
