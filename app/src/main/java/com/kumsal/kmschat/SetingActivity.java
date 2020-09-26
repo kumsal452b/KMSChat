@@ -152,11 +152,8 @@ public class SetingActivity extends AppCompatActivity {
                 mProgresDialog.show();
                 Uri resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
-                UUID uniqkey=UUID.randomUUID();
-                File file = new File(resultUri.getPath());
-                //Bu kadar
                 String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
-                final StorageReference filePath = imageStorage.getReference().child("profile_image")
+                final StorageReference filePath = imageStorage.getReference().child("profile_images")
                         .child(filename+".jpeg");
                 storageTask = filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -167,9 +164,19 @@ public class SetingActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 String url = uri.toString();
                                 mProgresDialog.dismiss();
-                                Log.d("urş", "onSuccess: "+url);
+                                mRefDatabase.child("imagesUrl").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        mProgresDialog.dismiss();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(SetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
-                        });//çalıitırsana
+                        });
                     }
                     }
                 });
