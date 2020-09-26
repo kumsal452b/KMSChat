@@ -11,9 +11,4 @@ public class deneme_a extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deneme_a);
     }
-
-    public void click(View view)
-    {
-
-    }
 }

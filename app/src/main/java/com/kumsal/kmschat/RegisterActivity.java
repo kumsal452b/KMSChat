@@ -26,12 +26,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextInputLayout mDisplay,mEmail,password;
+    private MaterialEditText mDisplay,mEmail,password;
     private Button regBtn;
     private FirebaseAuth mAuth;
     private Toolbar  toolbar;
@@ -58,9 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
         regBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String display=mDisplay.getEditText().getText().toString();
-                String email=mEmail.getEditText().getText().toString();
-                String password1=password.getEditText().getText().toString();
+                String display=mDisplay.getText().toString();
+                String email=mEmail.getText().toString();
+                String password1=password.getText().toString();
                 if (!TextUtils.isEmpty(display) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password1)){
                     mProgresDialog.setTitle("Registering User");
                     mProgresDialog.setMessage("Please wait while we create your account");
