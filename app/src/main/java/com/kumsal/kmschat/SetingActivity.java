@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -36,6 +38,7 @@ public class SetingActivity extends AppCompatActivity {
     private CircleImageView imageView;
     private Button changestatus;
     private Button changeimage;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -111,8 +114,10 @@ public class SetingActivity extends AppCompatActivity {
             if (resultCode==RESULT_OK){
                 if (data!=null){
                     Uri imageUri=data.getData();
-                    imageView.setImageURI(imageUri);
-
+//                    imageView.setImageURI(imageUri);
+                      CropImage.activity(imageUri)
+                            .setGuidelines(CropImageView.Guidelines.ON)
+                            .start(SetingActivity.this);
                 }
             }
         }
