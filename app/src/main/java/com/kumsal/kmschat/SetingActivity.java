@@ -36,6 +36,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -58,8 +59,10 @@ public class SetingActivity extends AppCompatActivity {
     private Button changeimage;
     private StorageReference mStorageRef;
     private ProgressDialog mProgresDialog;
+    private ProgressDialog getmProgresDialog;
     private FirebaseStorage imageStorage = FirebaseStorage.getInstance();
     private StorageTask<UploadTask.TaskSnapshot> storageTask;
+    private ValueEventListener dbListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -75,8 +78,13 @@ public class SetingActivity extends AppCompatActivity {
         changestatus=findViewById(R.id.seting_statuschanges);
 
         mRefDatabase= FirebaseDatabase.getInstance().getReference("Users").child(curentID);
-
-        mRefDatabase.addValueEventListener(new ValueEventListener() {
+        getmProgresDialog=new ProgressDialog(this);
+        getmProgresDialog.setTitle("Please Wait");
+        getmProgresDialog.setMessage("Please wait while we data is dowload");
+        getmProgresDialog.show();
+        changeimage.setVisibility(View.INVISIBLE);
+        changestatus.setVisibility(View.INVISIBLE);
+       dbListener= mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name1=snapshot.child("name").getValue().toString();
@@ -85,6 +93,11 @@ public class SetingActivity extends AppCompatActivity {
                 String thumball1=snapshot.child("thumbalimage").getValue().toString();
                 name.setText(name1);
                 status.setText(status1);
+                Picasso.get().load(image1).into(imageView);
+                changeimage.setVisibility(View.VISIBLE);
+                changestatus.setVisibility(View.VISIBLE);
+                getmProgresDialog.dismiss();
+
             }
 
             @Override
@@ -92,6 +105,7 @@ public class SetingActivity extends AppCompatActivity {
                 Toast.makeText(SetingActivity.this, "hata", Toast.LENGTH_SHORT).show();
             }
         });
+
         changeimage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
