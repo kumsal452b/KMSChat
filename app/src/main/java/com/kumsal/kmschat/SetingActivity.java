@@ -145,6 +145,7 @@ public class SetingActivity extends AppCompatActivity {
                 imageView.setImageURI(resultUri);
                 UUID uniqkey=UUID.randomUUID();
 
+                StorageReference mPath=mStorageRef.child("profile_images").child(uniqkey)
                 mStorageRef.child(uniqkey.toString()).putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
