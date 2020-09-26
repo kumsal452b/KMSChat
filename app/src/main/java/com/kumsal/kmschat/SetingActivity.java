@@ -1,9 +1,18 @@
 package com.kumsal.kmschat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +46,7 @@ public class SetingActivity extends AppCompatActivity {
         name=findViewById(R.id.seting_displayname);
         status=findViewById(R.id.seting_hi);
         imageView=findViewById(R.id.setings_circleimage);
-        changeimage=findViewById(R.id.seting_statusimage);
+        changeimage=findViewById(R.id.seting_changeimage);
         changestatus=findViewById(R.id.seting_statuschanges);
 
         mRefDatabase= FirebaseDatabase.getInstance().getReference("Users").child(curentID);
@@ -51,7 +60,6 @@ public class SetingActivity extends AppCompatActivity {
                 String thumball1=snapshot.child("thumbalimage").getValue().toString();
                 name.setText(name1);
                 status.setText(status1);
-
             }
 
             @Override
@@ -59,5 +67,47 @@ public class SetingActivity extends AppCompatActivity {
                 Toast.makeText(SetingActivity.this, "hata", Toast.LENGTH_SHORT).show();
             }
         });
+        changeimage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(SetingActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                 ActivityCompat.requestPermissions(SetingActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+                }else{
+                    fileChooser();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==1){
+            if (grantResults.length>0){
+                if (permissions[0]==Manifest.permission.READ_EXTERNAL_STORAGE){
+                    fileChooser();
+                }
+            }
+        }
+    }
+    public void fileChooser(){
+        Intent intent=new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==1){
+            if (resultCode==RESULT_OK){
+                if (data!=null){
+                    Uri imageUri=data.getData();
+                    imageView.setImageURI(imageUri);
+
+                }
+            }
+        }
     }
 }
