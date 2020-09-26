@@ -145,14 +145,14 @@ public class SetingActivity extends AppCompatActivity {
                 imageView.setImageURI(resultUri);
                 UUID uniqkey=UUID.randomUUID();
 
-                StorageReference mPath=mStorageRef.child("profile_images").child(uniqkey)
+                final StorageReference mPath=mStorageRef.child("profile_images").child(uniqkey.toString()+".jpg");
                 mStorageRef.child(uniqkey.toString()).putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
                             mProgresDialog.hide();
 
-                           mStorageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                           mPath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                @Override
                                public void onSuccess(Uri uri) {
                                    System.out.println(uri.toString());
