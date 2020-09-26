@@ -77,6 +77,13 @@ public class SetingActivity extends AppCompatActivity {
                 }
             }
         });
+        changestatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),StatusAcivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
