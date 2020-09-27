@@ -63,19 +63,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==R.id.menu_allusers){
-            Toast.makeText(this, "Deneme", Toast.LENGTH_SHORT).show();
+            Intent setingIntent=new Intent(MainActivity.this,UserActıvıty.class);
+            startActivity(setingIntent);
         }
         if (item.getItemId()==R.id.menu_logout){
-
             FirebaseUser user=mAuth.getCurrentUser();
             FirebaseAuth.getInstance().signOut();
             startTostart();
-
         }
         if (item.getItemId()==R.id.menu_setings){
             Intent setingIntent=new Intent(MainActivity.this,SetingActivity.class);
             startActivity(setingIntent);
-
         }
         return super.onOptionsItemSelected(item);
     }
