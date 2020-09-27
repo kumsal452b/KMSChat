@@ -2,6 +2,7 @@ package com.kumsal.kmschat;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -18,5 +19,12 @@ public class UserActıvıty extends AppCompatActivity {
         getSupportActionBar().setTitle("Deneme");
         recyclerView=findViewById(R.id.user_recycler);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        
     }
 }
