@@ -18,5 +18,6 @@ public class UserActıvıty extends AppCompatActivity {
         getSupportActionBar().setTitle("Deneme");
         recyclerView=findViewById(R.id.user_recycler);
         recyclerView.setHasFixedSize(true);
+
     }
 }
