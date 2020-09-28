@@ -40,7 +40,7 @@ public class UserActıvıty extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mrefDatabase= FirebaseDatabase.getInstance().getReference("Users");
         usersList=new ArrayList<>();
-        adapter=new UsersAdaptar(this,usersList);
+
         mrefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -53,7 +53,9 @@ public class UserActıvıty extends AppCompatActivity {
                     user=new Users(values.get("name"),values.get("status"),values.get("imageUrl"));
                     usersList.add(user);
                 }
-                adapter.notifyDataSetChanged();;
+//                adapter.notifyDataSetChanged();
+                adapter=new UsersAdaptar(getApplicationContext(),usersList);
+                recyclerView.setAdapter(adapter);
             }
 
             @Override
@@ -61,7 +63,7 @@ public class UserActıvıty extends AppCompatActivity {
 
             }
         });
-        recyclerView.setAdapter(adapter);
+
     }
 
 }
