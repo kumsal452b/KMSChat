@@ -4,7 +4,7 @@ public class Users {
     private String name,status,image;
 
     public  Users(){
-        
+
     }
     public Users(String name, String status, String image) {
         this.name = name;

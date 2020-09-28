@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class UserActıvıty extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mrefDatabase= FirebaseDatabase.getInstance().getReference("Users");
+        usersList=new ArrayList<>();
         adapter=new UsersAdaptar(this,usersList);
         mrefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -47,6 +49,7 @@ public class UserActıvıty extends AppCompatActivity {
                 Users user;
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
+                    System.out.println("URL "+values.get("imageUrl"));
                     user=new Users(values.get("name"),values.get("status"),values.get("imageUrl"));
                     usersList.add(user);
                 }
