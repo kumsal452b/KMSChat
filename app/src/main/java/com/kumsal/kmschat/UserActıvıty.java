@@ -12,16 +12,20 @@ import android.view.ViewGroup;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UserActıvıty extends AppCompatActivity {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private DatabaseReference mrefDatabase;
-    private UsersAdaptar adaptar;
+    private UsersAdaptar adapter;
     private List<Users> usersList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,27 @@ public class UserActıvıty extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mrefDatabase= FirebaseDatabase.getInstance().getReference("Users");
+        adapter=new UsersAdaptar(this,usersList);
+        mrefDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                HashMap<String,String> values=new HashMap<>();
+                Users user;
+                for (DataSnapshot data:snapshot.getChildren()) {
+                    values=(HashMap<String,String>)data.getValue();
+                    user=new Users(values.get("name"),values.get("status"),values.get("imageUrl"));
+                    usersList.add(user);
+                }
+                adapter.notifyDataSetChanged();;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        recyclerView.setAdapter(adapter);
     }
 
 }
