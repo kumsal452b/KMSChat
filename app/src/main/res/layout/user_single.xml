@@ -11,29 +11,20 @@
         android:layout_marginTop="15dp"
         app:layout_constraintCircleRadius="100dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/user_single_imageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_baseline_supervised_user_circle_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.13" />
-
         <TextView
             android:id="@+id/user_single_name"
             android:layout_width="264dp"
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:text="Name"
             android:textAlignment="center"
             android:textColor="#020101"
             android:textSize="24sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toEndOf="@+id/user_single_imageview"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -42,7 +33,6 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="20dp"
             android:text="TextView"
@@ -50,9 +40,20 @@
             android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/user_single_name"
-            app:layout_constraintStart_toEndOf="@+id/user_single_imageview"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_single_name"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.187" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_single_imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_baseline_supervised_user_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.478" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
