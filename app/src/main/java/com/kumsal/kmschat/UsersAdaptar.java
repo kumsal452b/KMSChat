@@ -1,6 +1,7 @@
 package com.kumsal.kmschat;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,8 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
         holder.status.setText(users.getStatus());
         holder.name.setText(users.getName());
         Picasso.get().load(users.getImage()).into(holder.imageView);
+        Uri uri=Uri.parse("https://firebasestorage.googleapis.com/v0/b/kmschat-b443e.appspot.com/o/profile_images%2Fprofile_imagexWsJuFFuSvg5DtyrOCgUvSf0LCy2.jpeg?alt=media&token=0447cef8-ca81-46b4-8d1b-c6a7af6a4d08");
+        holder.imageView.setImageURI(uri);
     }
 
     @Override
