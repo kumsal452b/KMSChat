@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -34,7 +36,10 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        
+        Users users=userValue.get(position);
+        holder.status.setText(users.getStatus());
+        holder.name.setText(users.getName());
+        Picasso.get().load(users.getImage()).into(holder.imageView);
     }
 
     @Override
