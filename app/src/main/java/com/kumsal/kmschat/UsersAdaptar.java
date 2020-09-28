@@ -19,8 +19,6 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
     Context context;
     List<Users> userValue;
-
-
     public UsersAdaptar(Context context, List<Users> userValue) {
         this.context = context;
         this.userValue = userValue;
