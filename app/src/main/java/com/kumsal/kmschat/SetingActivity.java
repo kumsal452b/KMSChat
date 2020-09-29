@@ -93,7 +93,11 @@ public class SetingActivity extends AppCompatActivity {
                 String thumball1=snapshot.child("thumbalimage").getValue().toString();
                 name.setText(name1);
                 status.setText(status1);
-                Picasso.get().load(image1).into(imageView);
+                if (image1.equals("")){
+                    Picasso.get().load("uujj").placeholder(R.drawable.ic_baseline_supervised_user_circle_24).into(imageView);
+                }else{
+                    Picasso.get().load(image1).into(imageView);
+                }
                 changeimage.setVisibility(View.VISIBLE);
                 changestatus.setVisibility(View.VISIBLE);
                 getmProgresDialog.dismiss();
