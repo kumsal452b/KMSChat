@@ -12,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,6 +48,8 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
+import id.zelory.compressor.constraint.Compression;
+
 
 public class SetingActivity extends AppCompatActivity {
 
@@ -169,6 +172,9 @@ public class SetingActivity extends AppCompatActivity {
                 mProgresDialog.setMessage("Please wait while we upload and procces the image");
                 mProgresDialog.show();
                 Uri resultUri = result.getUri();
+                
+
+                Bitmap bitmap1= Compre
                 imageView.setImageURI(resultUri);
                 String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final StorageReference filePath = imageStorage.getReference().child("profile_images")
