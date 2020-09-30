@@ -44,6 +44,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -171,12 +173,23 @@ public class SetingActivity extends AppCompatActivity {
                 mProgresDialog.setMessage("Please wait while we upload and procces the image");
                 mProgresDialog.show();
                 Uri resultUri = result.getUri();
-                Bitmap bitmap=Compressor().compress()
+                Bitmap bitmap=BitmapFactory.decodeFile(resultUri.getPath());
+                OutputStream os=new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,75,os);
+                byte[] image=new byte[];
+                try {
+                    os.write(image);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Bitmap resultbitmap=BitmapFactory.decodeByteArray(image,0,image.length);
 
                 imageView.setImageURI(resultUri);
+
                 String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final StorageReference filePath = imageStorage.getReference().child("profile_images")
                         .child(filename+".jpeg");
+                File file=new
                 storageTask = filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
