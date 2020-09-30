@@ -176,7 +176,7 @@ public class SetingActivity extends AppCompatActivity {
                 Bitmap bitmap=BitmapFactory.decodeFile(resultUri.getPath());
                 OutputStream os=new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG,75,os);
-                byte[] image=new byte[];
+                byte[] image = new byte[0];
                 try {
                     os.write(image);
                 } catch (IOException e) {
@@ -191,7 +191,7 @@ public class SetingActivity extends AppCompatActivity {
                         .child(filename+".jpeg");
                OutputStream os2=new ByteArrayOutputStream();
                resultbitmap.compress(Bitmap.CompressFormat.JPEG,75,os2);
-               byte[] imageresult=new byte[];
+               byte[] imageresult = new byte[0];
                 try {
                     os2.write(imageresult);
                 } catch (IOException e) {
