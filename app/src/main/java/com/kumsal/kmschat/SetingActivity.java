@@ -217,7 +217,27 @@ public class SetingActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
-                            String uri=
+                            thumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    mRefDatabase.child("").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            mProgresDialog.dismiss();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(SetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            });
                         }
 
                     }
