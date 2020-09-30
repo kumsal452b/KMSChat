@@ -220,12 +220,7 @@ public class SetingActivity extends AppCompatActivity {
                             thumbRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    mRefDatabase.child("").setValue(url).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    mRefDatabase.child("thumbalimage").setValue(uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             mProgresDialog.dismiss();
@@ -236,6 +231,12 @@ public class SetingActivity extends AppCompatActivity {
                                             Toast.makeText(SetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
                                 }
                             });
                         }
