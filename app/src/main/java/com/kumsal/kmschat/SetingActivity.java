@@ -102,7 +102,7 @@ public class SetingActivity extends AppCompatActivity {
                 if (image1.equals("")){
                     Picasso.get().load("uujj").placeholder(R.drawable.ic_baseline_supervised_user_circle_24).into(imageView);
                 }else{
-                    Picasso.get().load(image1).into(imageView);
+                    Picasso.get().load(thumball1).into(imageView);
                 }
                 changeimage.setVisibility(View.VISIBLE);
                 changestatus.setVisibility(View.VISIBLE);
