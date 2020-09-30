@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.StringTokenizer;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -174,10 +176,18 @@ public class SetingActivity extends AppCompatActivity {
                 mProgresDialog.show();
                 Uri resultUri = result.getUri();
                 imageView.setImageURI(resultUri);
+                imageView.setDrawingCacheEnabled(true);
+                imageView.buildDrawingCache();
+                Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 75, baos);
+                byte[] data2 = baos.toByteArray();
 
                 String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String thumbnail_fileN="thumbnails"+FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final StorageReference filePath = imageStorage.getReference().child("profile_images")
                         .child(filename+".jpeg");
+                final StorageReference thumbRef=imageStorage.getReference().child("profile_images").child("thumbs").child(thumbnail_fileN+".jpeg");
                 storageTask = filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -201,6 +211,15 @@ public class SetingActivity extends AppCompatActivity {
                             }
                         });
                     }
+                    }
+                });
+                thumbRef.putBytes(data2).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        if (task.isSuccessful()){
+                            String uri=
+                        }
+
                     }
                 });
 
