@@ -189,8 +189,15 @@ public class SetingActivity extends AppCompatActivity {
                 String filename = "profile_image"+ FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final StorageReference filePath = imageStorage.getReference().child("profile_images")
                         .child(filename+".jpeg");
-                File file=new
-                storageTask = filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+               OutputStream os2=new ByteArrayOutputStream();
+               resultbitmap.compress(Bitmap.CompressFormat.JPEG,75,os2);
+               byte[] imageresult=new byte[];
+                try {
+                    os2.write(imageresult);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                storageTask = filePath.putBytes(imageresult).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()){
