@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,7 +50,11 @@ public class UserActıvıty extends AppCompatActivity {
                 Users user;
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
-                    user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"));
+                    if (TextUtils.isEmpty(values.get("thumbalimage"))){
+                        user=new Users(values.get("name"),values.get("status"),"empty");
+                    }else{
+                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"));
+                    }
                     usersList.add(user);
                 }
 //                adapter.notifyDataSetChanged();
