@@ -29,6 +29,7 @@ public class UserActıvıty extends AppCompatActivity {
     private DatabaseReference mrefDatabase;
     private UsersAdaptar adapter;
     private List<Users> usersList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,12 +49,14 @@ public class UserActıvıty extends AppCompatActivity {
 
                 HashMap<String,String> values=new HashMap<>();
                 Users user;
+
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
+                    System.out.println(data.getKey());
                     if (TextUtils.isEmpty(values.get("thumbalimage"))){
-                        user=new Users(values.get("name"),values.get("status"),"empty");
+                        user=new Users(values.get("name"),values.get("status"),"empty",null);
                     }else{
-                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"));
+                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),null);
                     }
                     usersList.add(user);
                 }
