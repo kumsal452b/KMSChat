@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserActıvıty extends AppCompatActivity {
+public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.OnClickListener {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private DatabaseReference mrefDatabase;
@@ -54,9 +55,9 @@ public class UserActıvıty extends AppCompatActivity {
                     values=(HashMap<String,String>)data.getValue();
                     System.out.println(data.getKey());
                     if (TextUtils.isEmpty(values.get("thumbalimage"))){
-                        user=new Users(values.get("name"),values.get("status"),"empty",null);
+                        user=new Users(values.get("name"),values.get("status"),"empty",data.getKey());
                     }else{
-                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),null);
+                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),data.getKey());
                     }
                     usersList.add(user);
                 }
@@ -73,4 +74,11 @@ public class UserActıvıty extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onClikView(int position) {
+        Users users=usersList.get(position);
+        Intent profile_intent=new Intent(this,ProfileActivity.class);
+        profile_intent.putExtra("ui",users.getUserID());
+        startActivity(profile_intent);
+    }
 }
