@@ -22,7 +22,7 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
     Context context;
     List<Users> userValue;
 
-    public void setMlistener(OnClickListener mlistener) {
+    public void setOnClicklistener(OnClickListener mlistener) {
         this.mlistener = mlistener;
     }
     private OnClickListener mlistener;

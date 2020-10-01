@@ -72,6 +72,7 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 
             }
         });
+        adapter.setOnClicklistener(this);
 
     }
 
