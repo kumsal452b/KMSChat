@@ -99,7 +99,7 @@ public class SetingActivity extends AppCompatActivity {
                 String thumball1=snapshot.child("thumbalimage").getValue().toString();
                 name.setText(name1);
                 status.setText(status1);
-                if (image1.equals("")){
+                if (thumball1.equals("")){
                     Picasso.get().load("uujj").placeholder(R.drawable.ic_baseline_supervised_user_circle_24).into(imageView);
                 }else{
                     Picasso.get().load(thumball1).into(imageView);
@@ -163,6 +163,7 @@ public class SetingActivity extends AppCompatActivity {
 //                    imageView.setImageURI(imageUri);
                     CropImage.activity(imageUri)
                             .setGuidelines(CropImageView.Guidelines.ON)
+                            .setAspectRatio(1,1)
                             .start(SetingActivity.this);
                 }
             }
