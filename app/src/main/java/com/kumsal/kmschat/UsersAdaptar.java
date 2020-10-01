@@ -70,7 +70,7 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
            name=itemView.findViewById(R.id.user_single_name);
            status=itemView.findViewById(R.id.users_single_status);
            view=itemView;
-           itemView.setOnClickListener(this);
+           view.setOnClickListener(this);
        }
 
         @Override
