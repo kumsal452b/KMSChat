@@ -49,7 +49,7 @@ public class UserActıvıty extends AppCompatActivity {
                 Users user;
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
-                    user=new Users(values.get("name"),values.get("status"),values.get("imagesUrl"));
+                    user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"));
                     usersList.add(user);
                 }
 //                adapter.notifyDataSetChanged();
