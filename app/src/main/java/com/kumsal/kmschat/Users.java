@@ -2,14 +2,24 @@ package com.kumsal.kmschat;
 
 public class Users {
     private String name,status,image;
+    private String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public  Users(){
 
     }
-    public Users(String name, String status, String image) {
+    public Users(String name, String status, String image,String userID) {
         this.name = name;
         this.status = status;
         this.image = image;
+        this.userID=userID;
     }
 
     public String getName() {
