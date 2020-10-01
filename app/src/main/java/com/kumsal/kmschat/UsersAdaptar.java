@@ -35,10 +35,19 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
+
         Users users=userValue.get(position);
         holder.status.setText(users.getStatus());
+
         holder.name.setText(users.getName());
         Picasso.get().load(users.getImage()).placeholder(R.drawable.ic_baseline_supervised_user_circle_24).into(holder.imageView);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -47,9 +56,9 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder{
-
         public CircleImageView imageView;
         public TextView name,status;
+        public View view;
        public UserViewHolder(@NonNull View itemView) {
            super(itemView);
            imageView=itemView.findViewById(R.id.user_single_imageview);
