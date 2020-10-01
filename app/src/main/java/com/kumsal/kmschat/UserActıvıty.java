@@ -65,6 +65,7 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 //                adapter.notifyDataSetChanged();
                 adapter=new UsersAdaptar(getApplicationContext(),usersList);
                 recyclerView.setAdapter(adapter);
+                adapter.setOnClicklistener(UserActıvıty.this);
             }
 
             @Override
@@ -72,13 +73,13 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 
             }
         });
-        adapter.setOnClicklistener(this);
+
 
     }
 
     @Override
     public void onClikView(int position) {
-        Toast.makeText(this, position  , Toast.LENGTH_SHORT).show();
+
         Users users=usersList.get(position);
         Intent profile_intent=new Intent(this,ProfileActivity.class);
         profile_intent.putExtra("ui",users.getUserID());
