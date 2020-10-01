@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -76,9 +77,11 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 
     @Override
     public void onClikView(int position) {
+        Toast.makeText(this, position  , Toast.LENGTH_SHORT).show();
         Users users=usersList.get(position);
         Intent profile_intent=new Intent(this,ProfileActivity.class);
         profile_intent.putExtra("ui",users.getUserID());
         startActivity(profile_intent);
     }
+
 }

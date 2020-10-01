@@ -75,6 +75,7 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
         @Override
         public void onClick(View view) {
+
             if (mlistener!=null){
                 int position=getAdapterPosition();
                 if (position!=RecyclerView.NO_POSITION){
