@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,24 +26,31 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button senreq;
     private DatabaseReference mRefDatabase;
+    private String current_friends;
+    private DatabaseReference mFriendRequest;
+    private FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         mRefDatabase= FirebaseDatabase.getInstance().getReference("Users").child(getIntent().getStringExtra("ui"));
-
+        mFriendRequest=FirebaseDatabase.getInstance().getReference().child("Friends_req");
+        user= FirebaseAuth.getInstance().getCurrentUser();
         status=findViewById(R.id.profile_status);
         friendCounts=findViewById(R.id.profile_totalfriend);
         imageView=findViewById(R.id.profile_imageview);
         profile_display=findViewById(R.id.profile_displayname);
-
+        current_friends="not_friends";
+        senreq=findViewById(R.id.profile_sendrequestButton);
         mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                     String Display_name=snapshot.child("name").getValue().toString();
                     String status1=snapshot.child("status").getValue()+"";
                     String image=snapshot.child("imagesUrl").getValue()+"";
+
                     status.setText(status1);
                     profile_display.setText(Display_name);
                     Picasso.get().load(image).into(imageView);
@@ -49,6 +59,15 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        senreq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (current_friends.equals("'no_friends")){
+                    mFriendRequest.child(user.getUid()).child(getIntent().getStringExtra("ui"));
+                    
+                }
             }
         });
     }
