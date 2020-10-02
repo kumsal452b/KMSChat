@@ -8,7 +8,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -30,7 +29,7 @@ public class StatusAcivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_status_acivity);
+        setContentView(R.layout.activity_status);
         toolbar=findViewById(R.id.status_appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Status");
