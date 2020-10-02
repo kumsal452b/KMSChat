@@ -67,7 +67,8 @@ public class ProfileActivity extends AppCompatActivity {
         senreq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Selam ");
+                System.out.println("Gonderici "+user.getUid());
+                System.out.println("Alici "+getIntent().getStringExtra("ui"));
                 if (current_friends.equals("not_friends")){
                     mFriendRequest.child(user.getUid()).child(getIntent().getStringExtra("ui")).child("request_type").setValue("send")
                     .addOnFailureListener(new OnFailureListener() {
