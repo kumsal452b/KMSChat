@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                     status.setText(status1);
                     profile_display.setText(Display_name);
                     Picasso.get().load(image).into(imageView);
-                    mFriendRequest.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    mFriendRequest.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.hasChild(getIntent().getStringExtra("ui"))){
@@ -74,6 +74,10 @@ public class ProfileActivity extends AppCompatActivity {
                                     senreq.setText("Cancel Request");
                                     senreq.setBackgroundColor(Color.GREEN);
 
+                                }else{
+                                    current_friends="not_friends";
+                                    senreq.setText("Send Friend Request");
+                                    senreq.setBackgroundColor(R.style.AppTheme);
                                 }
                             }
                         }
@@ -95,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 senreq.setEnabled(false);
+                System.out.println(current_friends);
                 if (user.getUid().equals(getIntent().getStringExtra("ui"))){
                     Toast.makeText(ProfileActivity.this,
                             "you shouldn't send yourself a friend request", Toast.LENGTH_LONG).show();
