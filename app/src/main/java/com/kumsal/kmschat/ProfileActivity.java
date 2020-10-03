@@ -106,6 +106,8 @@ public class ProfileActivity extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     senreq.setBackgroundColor(R.drawable.button_back);
                                     current_friends="not_friends";
+                                    senreq.setText("Send Friend Request");
+                                    senreq.setEnabled(true);
                                     Toast.makeText(ProfileActivity.this, "Request deleting succes", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
