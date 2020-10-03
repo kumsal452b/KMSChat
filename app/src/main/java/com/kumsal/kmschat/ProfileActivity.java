@@ -3,6 +3,7 @@ package com.kumsal.kmschat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
@@ -64,26 +65,63 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
         senreq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                senreq.setEnabled(false);
+                if (user.getUid().equals(getIntent().getStringExtra("ui"))){
+                    Toast.makeText(ProfileActivity.this,
+                            "you shouldn't send yourself a friend request", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (current_friends.equals("not_friends")){
+
                     mFriendRequest.child(user.getUid()).child(getIntent().getStringExtra("ui")).child("request_type").setValue("send")
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             mFriendRequest.child(getIntent().getStringExtra("ui")).child(user.getUid()).child("request_type").setValue("received");
+                            senreq.setEnabled(true);
+                            current_friends="req_send";
+                            senreq.setText("Cancel Request");
+                            senreq.setBackgroundColor(Color.GREEN);
                             Toast.makeText(ProfileActivity.this, "Succes", Toast.LENGTH_LONG).show();
                         }
                     });
 
 
+                }
+                if (current_friends.equals("req_send")){
+                    mFriendRequest.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            mFriendRequest.child(getIntent().getStringExtra("ui")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(ProfileActivity.this, "Request deleting succes", Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(ProfileActivity.this,"Received "+ e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileActivity.this,"Send "+ e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                    
                 }
             }
         });
