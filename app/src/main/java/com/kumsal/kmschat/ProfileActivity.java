@@ -104,6 +104,8 @@ public class ProfileActivity extends AppCompatActivity {
                             mFriendRequest.child(getIntent().getStringExtra("ui")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    senreq.setBackgroundColor(R.drawable.button_back);
+                                    current_friends="not_friends";
                                     Toast.makeText(ProfileActivity.this, "Request deleting succes", Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
