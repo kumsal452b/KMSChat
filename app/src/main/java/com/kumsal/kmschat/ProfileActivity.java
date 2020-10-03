@@ -71,15 +71,15 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 }
                                 if (request_Type.equals("send")){
-                                    sr
+
                                     current_friends="req_send";
                                     senreq.setText("Cancel Request");
-                                    senreq.setBackgroundColor(Color.GREEN);
+                                    senreq.setBackgroundColor(Color.RED);
 
                                 }else{
                                     current_friends="not_friends";
                                     senreq.setText("Send Friend Request");
-                                    senreq.setBackgroundColor(R.style.AppTheme);
+                                    senreq.setBackgroundColor(Color.MAGENTA);
                                 }
                             }
                         }
