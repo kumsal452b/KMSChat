@@ -58,6 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
                     status.setText(status1);
                     profile_display.setText(Display_name);
                     Picasso.get().load(image).into(imageView);
+                            System.out.println("Tamamlandi");
                     mFriendRequest.child(user.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 }
                                 if (request_Type.equals("send")){
+                                    sr
                                     current_friends="req_send";
                                     senreq.setText("Cancel Request");
                                     senreq.setBackgroundColor(Color.GREEN);
