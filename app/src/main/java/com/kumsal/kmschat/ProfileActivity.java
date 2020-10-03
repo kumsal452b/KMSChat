@@ -58,6 +58,28 @@ public class ProfileActivity extends AppCompatActivity {
                     status.setText(status1);
                     profile_display.setText(Display_name);
                     Picasso.get().load(image).into(imageView);
+                    mFriendRequest.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.hasChild(getIntent().getStringExtra("ui"))){
+                                String request_Type=snapshot.child(getIntent().getStringExtra("ui")).child("request_type").getValue().toString();
+                                if (request_Type.equals("received")){
+
+                                }
+                                if (request_Type.equals("send")){
+                                    current_friends="req_send";
+                                    senreq.setText("Cancel Request");
+                                    senreq.setBackgroundColor(Color.GREEN);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
             }
 
             @Override
