@@ -64,6 +64,9 @@ public class ProfileActivity extends AppCompatActivity {
                             if (snapshot.hasChild(getIntent().getStringExtra("ui"))){
                                 String request_Type=snapshot.child(getIntent().getStringExtra("ui")).child("request_type").getValue().toString();
                                 if (request_Type.equals("received")){
+                                    current_friends="accept";
+                                    senreq.setText("Accept Friend Request");
+                                    senreq.setBackgroundColor(Color.GREEN);
 
                                 }
                                 if (request_Type.equals("send")){
@@ -112,7 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
                             senreq.setEnabled(true);
                             current_friends="req_send";
                             senreq.setText("Cancel Request");
-                            senreq.setBackgroundColor(Color.GREEN);
+                            senreq.setBackgroundColor(Color.RED);
                             Toast.makeText(ProfileActivity.this, "Succes", Toast.LENGTH_LONG).show();
                         }
                     });
