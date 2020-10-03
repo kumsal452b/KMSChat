@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     senreq.setBackgroundColor(Color.GREEN);
 
                                 }
-                                if (request_Type.equals("send")){
+                                else if (request_Type.equals("send")){
 
                                     current_friends="req_send";
                                     senreq.setText("Cancel Request");
