@@ -25,6 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class ProfileActivity extends AppCompatActivity {
 
     private TextView profile_display;
@@ -108,17 +111,24 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
                             String checkId=snapshot.getKey();
-                        if (!checkId.equals("") && !checkId.equals(null)){
-                            System.out.println(checkId);
-                            System.out.println(user.getUid()+ " "+clikedUserId.length()+" "+checkId.length());
-                            System.out.println(user.getUid().equals(checkId));
-                            if (user.getUid().equals(checkId)){
-                                senreq.setBackgroundResource(R.drawable.button_back);
-                                senreq.setText("Send Friend Request");
-                                current_friends="no_friends";
+                            if (!isRequestAccept){
+                                if (!checkId.equals("") && !checkId.equals(null)){
+                                    System.out.println(checkId);
+                                    System.out.println(user.getUid()+ " "+clikedUserId.length()+" "+checkId.length());
+                                    System.out.println(user.getUid().equals(checkId));
+                                    if (user.getUid().equals(checkId)){
+                                        senreq.setBackgroundResource(R.drawable.button_back);
+                                        senreq.setText("Send Friend Request");
+                                        current_friends="no_friends";
+                                    }
+                                }
+                            }else{
+                                senreq.setBackgroundResource(R.drawable.button_back3);
+                                senreq.setText("Your Friend");
+                                current_friends="accept";
                             }
-                        }
-                }
+
+                    }
 
                     @Override
                     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -151,7 +161,7 @@ public class ProfileActivity extends AppCompatActivity {
                         deleteRequest(user.getUid(),clikedUserId);
                     }
                     else if (current_friends.equals("receive")){
-
+                        addFriends(user.getUid(),clikedUserId);
                     }
 
                 }else{
@@ -334,16 +344,51 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private boolean isRequestAccept=false;
     private void addFriends(final String sendFrendId, final String recFriendId){
-        maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("name").setValue(profile_display.getText()).addOnFailureListener(new OnFailureListener() {
+        final String currentDate= DateFormat.getDateInstance().format(new Date());
+        maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                maddFriendsDatabase.child(recFriendId).child("name").child(sendFrendId).setValue(profile_display.getText())
+                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        isRequestAccept=true;
+                        mFriendRequest.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                mFriendRequest.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        senreq.setBackgroundResource(R.drawable.button_back3);
+                                        senreq.setText("Your Friend");
+                                        current_friends="accept";
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
