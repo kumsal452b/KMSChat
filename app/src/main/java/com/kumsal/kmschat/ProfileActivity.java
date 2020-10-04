@@ -35,13 +35,13 @@ public class ProfileActivity extends AppCompatActivity {
     private String current_friends;
     private DatabaseReference mFriendRequest;
     private FirebaseUser user;
-    private String userId;
+    private String clikedUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        userId = getIntent().getStringExtra("ui");
+        clikedUserId = getIntent().getStringExtra("ui");
         mRefDatabase = FirebaseDatabase.getInstance().getReference("Users").child(getIntent().getStringExtra("ui"));
         mFriendRequest = FirebaseDatabase.getInstance().getReference().child("Friends_req");
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -183,6 +183,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private Boolean chechIsFr(String userId,St)
 
     private void sendRequest(String senderUid , String getterUid , isReceived val){
 
