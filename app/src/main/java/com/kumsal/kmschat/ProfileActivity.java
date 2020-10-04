@@ -62,10 +62,38 @@ public class ProfileActivity extends AppCompatActivity {
                 status.setText(status1);
                 profile_display.setText(Display_name);
                 Picasso.get().load(image).into(imageView);
+                mFriendRequest.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(clikedUserId)){
+                            String reques_type=snapshot.child("request_type").getValue().toString();
+                            if (reques_type.equals("send")){
+                                senreq.setBackgroundResource(R.drawable.button_back2);
+                                senreq.setText("Cancel Friend Request");
+                                current_friends="send";
+                            }
+                            else if (reques_type.equals("receive")){
+                                senreq.setBackgroundResource(R.drawable.button_back3);
+                                senreq.setText("Accept Friend Request");
+                                current_friends="receive";
+                            }
+                            else{
+                                senreq.setBackgroundResource(R.drawable.button_back);
+                                senreq.setText("Send Friend Request");
+                                current_friends="no_friends";
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 mFriendRequest.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        System.out.println("Satir eklendi");
+
                     }
 
                     @Override
@@ -278,14 +306,15 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ProfileActivity.this, "Succes request deleted", Toast.LENGTH_LONG).show();
+                        senreq.setBackgroundResource(R.drawable.button_back);
+                        senreq.setText("Send Friend Request");
+                        current_friends="no_friends";
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                        senreq.setBackgroundResource(R.drawable.button_back);
-                        senreq.setText("Send Friend Request");
-                        current_friends="no_friends";
+
                     }
                 });
             }
