@@ -98,13 +98,20 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
                     }
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                        System.out.println("satir silindi");
-                    }
+                        if (snapshot.child(clikedUserId).exists()){
+                            String chechId=snapshot.child(clikedUserId).getValue().toString();
+                            System.out.println(chechId);
+                            if (user.getUid().equals(chechId)){
+                                senreq.setBackgroundResource(R.drawable.button_back);
+                                senreq.setText("Send Friend Request");
+                                current_friends="no_friends";
+                            }
+                        }
+                }
 
                     @Override
                     public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
