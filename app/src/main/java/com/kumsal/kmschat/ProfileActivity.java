@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.hasChild(clikedUserId)){
-                            String reques_type=snapshot.child("request_type").getValue().toString();
+                            String reques_type=snapshot.child(clikedUserId).child("request_type").getValue().toString();
                             if (reques_type.equals("send")){
                                 senreq.setBackgroundResource(R.drawable.button_back2);
                                 senreq.setText("Cancel Friend Request");
