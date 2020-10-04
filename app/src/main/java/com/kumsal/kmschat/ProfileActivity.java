@@ -36,14 +36,18 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference mFriendRequest;
     private FirebaseUser user;
     private String clikedUserId;
+    private DatabaseReference maddFriendsDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         clikedUserId = getIntent().getStringExtra("ui");
         mRefDatabase = FirebaseDatabase.getInstance().getReference("Users").child(getIntent().getStringExtra("ui"));
         mFriendRequest = FirebaseDatabase.getInstance().getReference().child("Friends_req");
+        maddFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("friendList");
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         status = findViewById(R.id.profile_status);
         friendCounts = findViewById(R.id.profile_totalfriend);
@@ -103,12 +107,12 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-                        if (snapshot.child(user.getUid()).exists()){
-                            String chechId=snapshot.getKey();
-                            System.out.println(chechId);
-                            System.out.println(user.getUid()+ " "+clikedUserId.length()+" "+chechId.length());
-                            System.out.println(user.getUid().equals(chechId));
-                            if (user.getUid().equals(chechId)){
+                            String checkId=snapshot.getKey();
+                        if (!checkId.equals("") && !checkId.equals(null)){
+                            System.out.println(checkId);
+                            System.out.println(user.getUid()+ " "+clikedUserId.length()+" "+checkId.length());
+                            System.out.println(user.getUid().equals(checkId));
+                            if (user.getUid().equals(checkId)){
                                 senreq.setBackgroundResource(R.drawable.button_back);
                                 senreq.setText("Send Friend Request");
                                 current_friends="no_friends";
@@ -330,6 +334,18 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void addFriends(final String sendFrendId, final String recFriendId){
+        maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("name").setValue(profile_display.getText()).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                maddFriendsDatabase.child(recFriendId).child("name").child(sendFrendId).setValue(profile_display.getText())
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 
 }
