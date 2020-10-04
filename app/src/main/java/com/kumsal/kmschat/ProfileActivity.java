@@ -76,17 +76,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                chekcIsFriend(userId, user.getUid(), new isFriend() {
-                    @Override
-                    public void isfriend(Boolean _value) {
-                        if (_value) {
-                            //gnderme
-                        } else {
-                            //send request
-                        }
+                if (!chechIsFr(user.getUid(),clikedUserId)){
+                    if (current_friends.equals("not_friends")){
+                        sendRequest(user.getUid(),clikedUserId);
                     }
-                });
 
+                }else{
+
+                }
             }
         });
         ;
@@ -160,20 +157,44 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void chekcIsFriend(final String userId, String currentUserID, final isFriend isFriend) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("friendList").child(currentUserID).
-                child(userId);
-        ref.addValueEventListener(new ValueEventListener() {
+//    private void chekcIsFriend(final String userId, String currentUserID, final isFriend isFriend) {
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("friendList").child(currentUserID).
+//                child(userId);
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists()) {
+//                    if (snapshot.hasChild(userId)) {
+//                        isFriend.isfriend(true);
+//                    } else {
+//                        isFriend.isfriend(false);
+//                    }
+//                } else {
+//                    isFriend.isfriend(false);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+    private boolean karar=false;
+    private Boolean chechIsFr(String userId, final String clikedUserId){
+        DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList").child(userId).child(clikedUserId);
+        chechFriend.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    if (snapshot.hasChild(userId)) {
-                        isFriend.isfriend(true);
-                    } else {
-                        isFriend.isfriend(false);
+                if (snapshot.exists()){
+                    if (snapshot.hasChild(clikedUserId)){
+                        karar=true;
+                    }else{
+                        karar=false;
                     }
-                } else {
-                    isFriend.isfriend(false);
+
+                }else{
+                   karar=false;
                 }
             }
 
@@ -182,11 +203,57 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+        return karar;
     }
-    private Boolean chechIsFr(String userId,St)
 
-    private void sendRequest(String senderUid , String getterUid , isReceived val){
+    private void sendRequest(final String senderUid , final String getterUid){
+        mRefDatabase.child(senderUid).child(getterUid).child("request_type").setValue("send")
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mRefDatabase.child(getterUid).child(senderUid).child("request_type").setValue("receive")
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(ProfileActivity.this, "Succes friend request", Toast.LENGTH_SHORT).show();
+                            
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
+                    }
+                });
+            }
+        });
+    }
+    private void deleteRequest(final String senderUid , final String getterUid){
+        mRefDatabase.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                mRefDatabase.child(getterUid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProfileActivity.this, "Succes request deleted", Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 
 
