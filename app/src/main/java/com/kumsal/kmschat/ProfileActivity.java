@@ -62,7 +62,32 @@ public class ProfileActivity extends AppCompatActivity {
                 status.setText(status1);
                 profile_display.setText(Display_name);
                 Picasso.get().load(image).into(imageView);
-                //Gerisi cok onemli degil
+                mFriendRequest.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        System.out.println("Satir eklendi");
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                        System.out.println("satir silindi");
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
 
@@ -213,7 +238,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void sendRequest(final String senderUid , final String getterUid){
-        mRefDatabase.child(senderUid).child(getterUid).child("request_type").setValue("send")
+        mFriendRequest.child(senderUid).child(getterUid).child("request_type").setValue("send")
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -241,7 +266,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
     private void deleteRequest(final String senderUid , final String getterUid){
-        mRefDatabase.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
+        mFriendRequest.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
