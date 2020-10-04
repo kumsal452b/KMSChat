@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
                         deleteRequest(user.getUid(),clikedUserId);
                     }
                     else if (current_friends.equals("receive")){
-                        
+
                     }
 
                 }else{
@@ -258,6 +258,9 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        senreq.setBackgroundResource(R.drawable.button_back);
+                        senreq.setText("Send Friend Request");
+                        current_friends="no_friends";
                     }
                 });
             }
