@@ -221,7 +221,7 @@ public class ProfileActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProfileActivity.this, "Succes friend request", Toast.LENGTH_SHORT).show();
-                            
+                            senreq.setBackgroundResource(R.);
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                     @Override
