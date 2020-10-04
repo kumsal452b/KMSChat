@@ -123,6 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     }
                                 }
                             }else{
+                                System.out.println("Else durumuna gecildi");
                                 senreq.setBackgroundResource(R.drawable.button_back3);
                                 senreq.setText("Your Friend");
                                 current_friends="accept";
@@ -344,7 +345,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-    private boolean isRequestAccept=false;
+    public static boolean isRequestAccept=false;
     private void addFriends(final String sendFrendId, final String recFriendId){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
         maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
