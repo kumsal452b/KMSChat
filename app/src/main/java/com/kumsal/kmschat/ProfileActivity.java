@@ -102,10 +102,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                        System.out.println("satir silindi");
+                        System.out.println(snapshot.getKey()+"");
                         if (snapshot.child(clikedUserId).exists()){
                             String chechId=snapshot.child(clikedUserId).getValue().toString();
                             System.out.println(chechId);
-                            if (user.getUid().equals(chechId)){
+                            if (clikedUserId.equals(chechId)){
                                 senreq.setBackgroundResource(R.drawable.button_back);
                                 senreq.setText("Send Friend Request");
                                 current_friends="no_friends";
