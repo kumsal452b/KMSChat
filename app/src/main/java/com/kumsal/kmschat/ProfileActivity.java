@@ -247,7 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                mRefDatabase.child(getterUid).child(senderUid).child("request_type").setValue("receive")
+                mFriendRequest.child(getterUid).child(senderUid).child("request_type").setValue("receive")
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -274,7 +274,7 @@ public class ProfileActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                mRefDatabase.child(getterUid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                mFriendRequest.child(getterUid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ProfileActivity.this, "Succes request deleted", Toast.LENGTH_LONG).show();
