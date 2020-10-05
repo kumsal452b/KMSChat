@@ -63,6 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
          mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 String Display_name = snapshot.child("name").getValue().toString();
                 String status1 = snapshot.child("status").getValue() + "";
                 String image = snapshot.child("imagesUrl").getValue() + "";
@@ -85,16 +86,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 senreq.setText("Accept Friend Request");
                                 current_friends="receive";
                             }
-                            else{
-                                if (chechIsFr(user.getUid(),clikedUserId)){
-                                    senreq.setBackgroundResource(R.drawable.button_back3);
-                                    senreq.setText("Your Friend");
-                                    current_friends="accept";
-                                }else{
-                                senreq.setBackgroundResource(R.drawable.button_back);
-                                senreq.setText("Send Friend Request");
-                                current_friends="no_friends";}
-                            }
+
                         }
                     }
 
@@ -103,6 +95,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
+                if (chechIsFr(user.getUid(),clikedUserId)){
+                    senreq.setBackgroundResource(R.drawable.button_back3);
+                    senreq.setText("Your Friend");
+                    current_friends="accept";
+                }
                 mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -117,9 +114,7 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                             String checkId=snapshot.getKey();
                                 if (!checkId.equals("") && !checkId.equals(null)){
-                                    System.out.println(checkId);
-                                    System.out.println(user.getUid()+ " "+clikedUserId.length()+" "+checkId.length());
-                                    System.out.println(user.getUid().equals(checkId));
+
                                     if (user.getUid().equals(checkId)){
                                         senreq.setBackgroundResource(R.drawable.button_back);
                                         senreq.setText("Send Friend Request");
@@ -163,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                 }else{
-
+                    Toast.makeText(ProfileActivity.this, "Each other's friend ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
