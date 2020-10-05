@@ -259,7 +259,7 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean karar=false;
     private Boolean chechIsFr(String userId, final String clikedUserId){
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
-        String check=chechFriend.child(userId).child(clikedUserId).getKey();
+
         if (check.equals("") || check.equals(null))
         {
             karar=false;
