@@ -90,6 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
                                 senreq.setText("Send Friend Request");
                                 current_friends="no_friends";
                             }
+                        }else{
+                            if (chechIsFr(user.getUid(),clikedUserId)){
+                                senreq.setBackgroundResource(R.drawable.button_back3);
+                                senreq.setText("Your Friend");
+                                current_friends="accept";
+                            }
                         }
                     }
 
@@ -348,7 +354,6 @@ public class ProfileActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-
                         mFriendRequest.removeEventListener(mListenerRquestFriend);
                         newListener();
                 maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
