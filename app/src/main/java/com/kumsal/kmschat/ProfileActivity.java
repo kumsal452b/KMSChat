@@ -40,7 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseUser user;
     private String clikedUserId;
     private DatabaseReference maddFriendsDatabase,mFriendRequestbeta;
-    private ValueEventListener mListenerRquestFriend;
+    private ChildEventListener mListenerRquestFriend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         current_friends = "not_friends";
         senreq = findViewById(R.id.profile_sendrequestButton);
         //ahazılayalım o zama
-        mListenerRquestFriend=mRefDatabase.addValueEventListener(new ValueEventListener() {
+         mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String Display_name = snapshot.child("name").getValue().toString();
@@ -86,15 +86,14 @@ public class ProfileActivity extends AppCompatActivity {
                                 current_friends="receive";
                             }
                             else{
+                                if (chechIsFr(user.getUid(),clikedUserId)){
+                                    senreq.setBackgroundResource(R.drawable.button_back3);
+                                    senreq.setText("Your Friend");
+                                    current_friends="accept";
+                                }else{
                                 senreq.setBackgroundResource(R.drawable.button_back);
                                 senreq.setText("Send Friend Request");
-                                current_friends="no_friends";
-                            }
-                        }else{
-                            if (chechIsFr(user.getUid(),clikedUserId)){
-                                senreq.setBackgroundResource(R.drawable.button_back3);
-                                senreq.setText("Your Friend");
-                                current_friends="accept";
+                                current_friends="no_friends";}
                             }
                         }
                     }
@@ -104,7 +103,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
-                mFriendRequest.addChildEventListener(new ChildEventListener() {
+                mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
