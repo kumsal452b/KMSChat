@@ -1,13 +1,13 @@
 package com.kumsal.kmschat;
 
 public class Karar {
-    boolean isCheck;
+    private boolean isCheck;
 
     public Karar(boolean isCheck) {
         this.isCheck = isCheck;
     }
 
-    public boolean isCheck() {
+    public boolean getisCheck() {
         return isCheck;
     }
 
