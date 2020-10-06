@@ -259,15 +259,15 @@ public class ProfileActivity extends AppCompatActivity {
 //    }
     private boolean karar=false;
     private Boolean chechIsFr(String userId, final String clikedUserId){
-         boolean karar2=false;
+         final Karar nesne=new Karar(false);
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
         chechFriend.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     System.out.println("Arkadas istegi kontrolu yapildi");
-                    karar=true;
-                    System.out.println("selam");
+                    nesne.setCheck(true);
+                    System.out.println(nesne.getisCheck());
                 }
                 else{
                     karar=false;
@@ -279,7 +279,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-        return karar;
+        return nesne.getisCheck();
     }
 
     private void sendRequest(final String senderUid , final String getterUid){
