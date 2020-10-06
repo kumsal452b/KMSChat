@@ -95,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
+                System.out.println(chechIsFr(user.getUid(),clikedUserId));
                 if (chechIsFr(user.getUid(),clikedUserId)){
                     senreq.setBackgroundResource(R.drawable.button_back3);
                     senreq.setText("Your Friend");
@@ -258,6 +259,7 @@ public class ProfileActivity extends AppCompatActivity {
 //    }
     private boolean karar=false;
     private Boolean chechIsFr(String userId, final String clikedUserId){
+         boolean karar2=false;
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
         chechFriend.addValueEventListener(new ValueEventListener() {
             @Override
@@ -265,6 +267,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     System.out.println("Arkadas istegi kontrolu yapildi");
                     karar=true;
+                    System.out.println("selam");
                 }
                 else{
                     karar=false;
