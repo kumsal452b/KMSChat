@@ -264,9 +264,10 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     System.out.println("Arkadas istegi kontrolu yapildi");
+                    karar=true;
                 }
                 else{
-
+                    karar=false;
                 }
             }
 
@@ -275,7 +276,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-        return true;
+        return karar;
     }
 
     private void sendRequest(final String senderUid , final String getterUid){
