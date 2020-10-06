@@ -261,24 +261,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Boolean chechIsFr(String userId, final String clikedUserId){
          final Karar nesne=new Karar(false);
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
-        chechFriend.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    System.out.println("Arkadas istegi kontrolu yapildi");
-                    nesne.setCheck(true);
-                    System.out.println(nesne.getisCheck());
-                }
-                else{
-                    karar=false;
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        chechFriend.chi
+        System.out.println("son dem "+nesne.getisCheck());
         return nesne.getisCheck();
     }
 
