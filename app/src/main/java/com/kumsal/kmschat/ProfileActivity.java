@@ -41,11 +41,13 @@ public class ProfileActivity extends AppCompatActivity {
     private String clikedUserId;
     private DatabaseReference maddFriendsDatabase,mFriendRequestbeta;
     private ChildEventListener mListenerRquestFriend;
+    private ValueEventListener mValueListener;
+    private Karar mKarar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        mKarar=new Karar(false);
         clikedUserId = getIntent().getStringExtra("ui");
         mRefDatabase = FirebaseDatabase.getInstance().getReference("Users").child(getIntent().getStringExtra("ui"));
         mFriendRequest = FirebaseDatabase.getInstance().getReference().child("Friends_req");
@@ -53,13 +55,14 @@ public class ProfileActivity extends AppCompatActivity {
         maddFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("friendList");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        chechIsFr(user.getUid(),clikedUserId);
         status = findViewById(R.id.profile_status);
         friendCounts = findViewById(R.id.profile_totalfriend);
         imageView = findViewById(R.id.profile_imageview);
         profile_display = findViewById(R.id.profile_displayname);
         current_friends = "not_friends";
         senreq = findViewById(R.id.profile_sendrequestButton);
-        //ahazılayalım o zama
+
          mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,8 +98,8 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
-                System.out.println(chechIsFr(user.getUid(),clikedUserId));
-                if (chechIsFr(user.getUid(),clikedUserId)){
+                if (mKarar.getisCheck()){
+                    System.out.println("Ilk dem"+mKarar.getisCheck());
                     senreq.setBackgroundResource(R.drawable.button_back3);
                     senreq.setText("Your Friend");
                     current_friends="accept";
@@ -115,7 +118,6 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                             String checkId=snapshot.getKey();
                                 if (!checkId.equals("") && !checkId.equals(null)){
-
                                     if (user.getUid().equals(checkId)){
                                         senreq.setBackgroundResource(R.drawable.button_back);
                                         senreq.setText("Send Friend Request");
@@ -147,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!chechIsFr(user.getUid(),clikedUserId)){
+                if (!mKarar.getisCheck()){
                     if (current_friends.equals("not_friends")){
                         sendRequest(user.getUid(),clikedUserId);
                     }
@@ -257,13 +259,23 @@ public class ProfileActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-    private boolean karar=false;
-    private Boolean chechIsFr(String userId, final String clikedUserId){
-         final Karar nesne=new Karar(false);
+    private void chechIsFr(String userId, final String clikedUserId){
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
-        chechFriend.chi
-        System.out.println("son dem "+nesne.getisCheck());
-        return nesne.getisCheck();
+        mValueListener=chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                   mKarar.setCheck(true);
+                }else{
+                    mKarar.setCheck(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void sendRequest(final String senderUid , final String getterUid){
@@ -332,8 +344,6 @@ public class ProfileActivity extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                        mFriendRequest.removeEventListener(mListenerRquestFriend);
-                        newListener();
                 maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -371,35 +381,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
-    public void newListener(){
-        mFriendRequest.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                senreq.setBackgroundResource(R.drawable.button_back3);
-                senreq.setText("Your Friend");
-                current_friends="accept";
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
     }
 
