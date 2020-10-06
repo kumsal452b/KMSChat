@@ -259,14 +259,23 @@ public class ProfileActivity extends AppCompatActivity {
     private boolean karar=false;
     private Boolean chechIsFr(String userId, final String clikedUserId){
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
+        chechFriend.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    System.out.println("Arkadas istegi kontrolu yapildi");
+                }
+                else{
 
-        if (check.equals("") || check.equals(null))
-        {
-            karar=false;
-        }else{
-            karar=true;
-        }
-        return karar;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return true;
     }
 
     private void sendRequest(final String senderUid , final String getterUid){
