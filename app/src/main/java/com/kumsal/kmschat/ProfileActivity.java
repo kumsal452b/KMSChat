@@ -54,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
         mFriendRequestbeta=FirebaseDatabase.getInstance().getReference().child("Friends_req");
         maddFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("friendList");
 
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         chechIsFr(user.getUid(),clikedUserId);
         status = findViewById(R.id.profile_status);
@@ -98,6 +99,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (mKarar.getisCheck()){
                     System.out.println("Ilk dem"+mKarar.getisCheck());
                     senreq.setBackgroundResource(R.drawable.button_back3);
@@ -236,29 +242,6 @@ public class ProfileActivity extends AppCompatActivity {
 //        });
     }
 
-//    private void chekcIsFriend(final String userId, String currentUserID, final isFriend isFriend) {
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("friendList").child(currentUserID).
-//                child(userId);
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists()) {
-//                    if (snapshot.hasChild(userId)) {
-//                        isFriend.isfriend(true);
-//                    } else {
-//                        isFriend.isfriend(false);
-//                    }
-//                } else {
-//                    isFriend.isfriend(false);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
     private void chechIsFr(String userId, final String clikedUserId){
         DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
         mValueListener=chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
