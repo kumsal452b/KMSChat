@@ -97,7 +97,9 @@ public class ProfileActivity extends AppCompatActivity {
                             else if (reques_type.equals("accept")){
 
                             }
-                            
+                            else if (reques_type.equals("denial")){
+
+                            }
                         }
                     }
 
@@ -372,6 +374,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
     private void deleteRequest(final String senderUid , final String getterUid){
+        mFriendRequest.child(senderUid).child(getterUid).child("request_type")
         mFriendRequest.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
