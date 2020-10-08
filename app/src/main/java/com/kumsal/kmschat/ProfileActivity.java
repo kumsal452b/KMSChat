@@ -282,17 +282,19 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void chechIsFr(String userId, final String clikedUserId){
+    private void chechIsFr(final String userId, final String clikedUserId){
         chechFriend = FirebaseDatabase.getInstance().getReference("friendList");
-        chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
+        mValueListener=chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
+                    Toast.makeText(ProfileActivity.this, userId, Toast.LENGTH_SHORT).show();
                     mKarar.setCheck(true);
                     senreq.setBackgroundResource(R.drawable.button_back3);
                     senreq.setText("Your Friend");
                     current_friends="accept";
                     registerForContextMenu(senreq);
+                    chechFriend.removeEventListener(mValueListener);
                 }else{
                     mKarar.setCheck(false);
                 }
@@ -319,6 +321,7 @@ public class ProfileActivity extends AppCompatActivity {
                 String checkId=snapshot.getKey();
                 if (!checkId.equals("") && !checkId.equals(null)){
                     if (user.getUid().equals(checkId)){
+                        Toast.makeText(ProfileActivity.this, userId +" Silinme islemi gerceklesti", Toast.LENGTH_SHORT).show();
                         senreq.setBackgroundResource(R.drawable.button_back);
                         senreq.setText("Send Friend Request");
                         current_friends="no_friends";
