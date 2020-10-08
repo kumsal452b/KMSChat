@@ -256,7 +256,7 @@ public class ProfileActivity extends AppCompatActivity {
             chechFriend.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    mFriendRequest.child(clikedUserId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    chechFriend.child(clikedUserId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 
                         @Override
                         public void onSuccess(Void aVoid) {
