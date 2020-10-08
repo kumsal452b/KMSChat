@@ -15,8 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -29,6 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -374,34 +377,54 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
     private void deleteRequest(final String senderUid , final String getterUid){
-        mFriendRequest.child(senderUid).child(getterUid).child("request_type")
-        mFriendRequest.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
+        HashMap<String,Object> hashMap=new HashMap<>();
+        hashMap.put("request_type","denial");
+        mFriendRequest.child(senderUid).child(getterUid).child("request_type").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                mFriendRequest.child(getterUid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(ProfileActivity.this, "Succes request deleted", Toast.LENGTH_LONG).show();
-                        senreq.setBackgroundResource(R.drawable.button_back);
-                        senreq.setText("Send Friend Request");
-                        current_friends="no_friends";
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-
-                    }
-                });
+            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()){
+//                    HashMap<String,Object> hashMap=new HashMap<>();
+//                    hashMap.put("request_type","denial");
+//                    mFriendRequest.child(getterUid).child(senderUid).child("request_type");
+//                    mFriendRequest.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
             }
         });
+
+       
+
+//        mFriendRequest.child(senderUid).removeValue().addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//            }
+//        }).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                mFriendRequest.child(getterUid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(ProfileActivity.this, "Succes request deleted", Toast.LENGTH_LONG).show();
+//                        senreq.setBackgroundResource(R.drawable.button_back);
+//                        senreq.setText("Send Friend Request");
+//                        current_friends="no_friends";
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//
+//                    }
+//                });
+//            }
+//        });
     }
-    public static boolean isRequestAccept=false;
+
     private void addFriends(final String sendFrendId, final String recFriendId){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
         mFriendRequest.removeEventListener(mListenerRquestFriend);
