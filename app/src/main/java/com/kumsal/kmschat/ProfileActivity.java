@@ -99,17 +99,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                     }
                 });
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if (mKarar.getisCheck()){
-                    System.out.println("Ilk dem"+mKarar.getisCheck());
-                    senreq.setBackgroundResource(R.drawable.button_back3);
-                    senreq.setText("Your Friend");
-                    current_friends="accept";
-                }
+
+//                if (mKarar.getisCheck()){
+//                    System.out.println("Ilk dem"+mKarar.getisCheck());
+//                    senreq.setBackgroundResource(R.drawable.button_back3);
+//                    senreq.setText("Your Friend");
+//                    current_friends="accept";
+//                }
                 mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -248,7 +244,10 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                   mKarar.setCheck(true);
+                    mKarar.setCheck(true);
+                    senreq.setBackgroundResource(R.drawable.button_back3);
+                    senreq.setText("Your Friend");
+                    current_friends="accept";
                 }else{
                     mKarar.setCheck(false);
                 }
