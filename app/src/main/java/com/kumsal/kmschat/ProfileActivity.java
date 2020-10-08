@@ -379,7 +379,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void deleteRequest(final String senderUid , final String getterUid){
         HashMap<String,Object> hashMap=new HashMap<>();
         hashMap.put("request_type","denial");
-        mFriendRequest.child(senderUid).child(getterUid).child("request_type").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mFriendRequest.child(senderUid).child(getterUid).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 //                if (task.isSuccessful()){
