@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ValueEventListener mValueListener;
     private Karar mKarar;
     private DatabaseReference chechFriend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,6 +150,37 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+         mFriendRequestbeta.addChildEventListener(new ChildEventListener() {
+             @Override
+             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+             }
+
+             @Override
+             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+             }
+
+             @Override
+             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                 senreq.setBackgroundResource(R.drawable.button_back3);
+                 senreq.setText("Your Friend");
+                 current_friends="accept";
+
+             }
+
+             @Override
+             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+             }
+
+             @Override
+             public void onCancelled(@NonNull DatabaseError error) {
+
+             }
+         });
+
 
         senreq.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,6 +432,7 @@ public class ProfileActivity extends AppCompatActivity {
     public static boolean isRequestAccept=false;
     private void addFriends(final String sendFrendId, final String recFriendId){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
+        mFriendRequest.removeEventListener(mListenerRquestFriend);
         maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -411,10 +444,10 @@ public class ProfileActivity extends AppCompatActivity {
                 maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        mFriendRequest.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        mFriendRequestbeta.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                mFriendRequest.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                mFriendRequestbeta.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 
                                     @Override
                                     public void onSuccess(Void aVoid) {
