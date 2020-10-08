@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ChildEventListener mListenerRquestFriend;
     private ValueEventListener mValueListener;
     private Karar mKarar;
+    private DatabaseReference chechFriend;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,6 +155,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 if (!mKarar.getisCheck()){
+                    unregisterForContextMenu(senreq);
                     if (current_friends.equals("not_friends")){
                         sendRequest(user.getUid(),clikedUserId);
                     }
@@ -238,9 +242,49 @@ public class ProfileActivity extends AppCompatActivity {
 //        });
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Your Option");
+        menu.add(0,v.getId(),0,"Delete Friendship");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        if (item.getTitle().equals("Delete Friendship")){
+            chechFriend.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    mFriendRequest.child(clikedUserId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            senreq.setBackgroundResource(R.drawable.button_back3);
+                            senreq.setText("Your Friend");
+                            current_friends="accept";
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }
+        return super.onContextItemSelected(item);
+    }
+
     private void chechIsFr(String userId, final String clikedUserId){
-        DatabaseReference chechFriend=FirebaseDatabase.getInstance().getReference("friendList");
-        mValueListener=chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
+        chechFriend = FirebaseDatabase.getInstance().getReference("friendList");
+        chechFriend.child(userId).child(clikedUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -248,9 +292,44 @@ public class ProfileActivity extends AppCompatActivity {
                     senreq.setBackgroundResource(R.drawable.button_back3);
                     senreq.setText("Your Friend");
                     current_friends="accept";
+                    registerForContextMenu(senreq);
                 }else{
                     mKarar.setCheck(false);
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        chechFriend.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                String checkId=snapshot.getKey();
+                if (!checkId.equals("") && !checkId.equals(null)){
+                    if (user.getUid().equals(checkId)){
+                        senreq.setBackgroundResource(R.drawable.button_back);
+                        senreq.setText("Send Friend Request");
+                        current_friends="no_friends";
+                        unregisterForContextMenu(senreq);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
