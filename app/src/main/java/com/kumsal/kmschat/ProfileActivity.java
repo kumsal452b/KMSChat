@@ -101,6 +101,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                             }
                             else if (reques_type.equals("denial")){
+                                senreq.setBackgroundResource(R.drawable.button_back);
+                                senreq.setText("Send Request Friend");
+                                current_friends="not_friends";
 
                             }
                         }
@@ -382,17 +385,16 @@ public class ProfileActivity extends AppCompatActivity {
         mFriendRequest.child(senderUid).child(getterUid).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()){
-//                    HashMap<String,Object> hashMap=new HashMap<>();
-//                    hashMap.put("request_type","denial");
-//                    mFriendRequest.child(getterUid).child(senderUid).child("request_type");
-//                    mFriendRequest.updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                }
+                if (task.isSuccessful()){
+                    HashMap<String,Object> hashMap=new HashMap<>();
+                    hashMap.put("request_type","denial");
+                    mFriendRequest.child(getterUid).child(senderUid).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
@@ -427,7 +429,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void addFriends(final String sendFrendId, final String recFriendId){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
-        mFriendRequest.removeEventListener(mListenerRquestFriend);
         maddFriendsDatabase.child(sendFrendId).child(recFriendId).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -439,28 +440,48 @@ public class ProfileActivity extends AppCompatActivity {
                 maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        mFriendRequestbeta.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        mFriendRequestbeta.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                mFriendRequestbeta.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+//
+//                                    @Override
+//                                    public void onSuccess(Void aVoid) {
+//                                        senreq.setBackgroundResource(R.drawable.button_back3);
+//                                        senreq.setText("Your Friend");
+//                                        current_friends="accept";
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//                                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                                    }
+//                                });
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+                        HashMap<String,Object> hashMap=new HashMap<>();
+                        hashMap.put("request_type","accept");
+                        mFriendRequestbeta.child(sendFrendId).child(recFriendId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                mFriendRequestbeta.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        senreq.setBackgroundResource(R.drawable.button_back3);
-                                        senreq.setText("Your Friend");
-                                        current_friends="accept";
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    HashMap<String,Object> hashMap=new HashMap<>();
+                                    hashMap.put("request_type","accept");
+                                    mFriendRequestbeta.child(recFriendId).child(sendFrendId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
+                                            senreq.setBackgroundResource(R.drawable.button_back3);
+//                                        senreq.setText("Your Friend");
+//                                        current_friends="accept";
+                                        }
+                                    });
+                                }
                             }
                         });
                     }
