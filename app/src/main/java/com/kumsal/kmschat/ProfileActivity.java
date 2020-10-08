@@ -98,7 +98,9 @@ public class ProfileActivity extends AppCompatActivity {
                                 current_friends="receive";
                             }
                             else if (reques_type.equals("accept")){
-
+                                senreq.setBackgroundResource(R.drawable.button_back3);
+                                senreq.setText("Your Friend");
+                                current_friends="accept";
                             }
                             else if (reques_type.equals("denial")){
                                 senreq.setBackgroundResource(R.drawable.button_back);
@@ -269,9 +271,25 @@ public class ProfileActivity extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(Void aVoid) {
-                            senreq.setBackgroundResource(R.drawable.button_back3);
-                            senreq.setText("Your Friend");
-                            current_friends="accept";
+                            HashMap<String,Object> hashMap=new HashMap<>();
+                            hashMap.put("request_type","denial");
+                            mFriendRequestbeta.child(user.getUid()).child(clikedUserId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        HashMap<String,Object> hashMap=new HashMap<>();
+                                        hashMap.put("request_type","denial");
+                                        mFriendRequestbeta.child(clikedUserId).child(user.getUid()).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                senreq.setBackgroundResource(R.drawable.button_back);
+                                                senreq.setText("Send Request Friend");
+                                                current_friends="not_friends";
+                                            }
+                                        });
+                                    }
+                                }
+                            });
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -477,8 +495,8 @@ public class ProfileActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
                                             senreq.setBackgroundResource(R.drawable.button_back3);
-//                                        senreq.setText("Your Friend");
-//                                        current_friends="accept";
+                                            senreq.setText("Your Friend");
+                                            current_friends="accept";
                                         }
                                     });
                                 }
