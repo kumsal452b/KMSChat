@@ -94,7 +94,10 @@ public class ProfileActivity extends AppCompatActivity {
                                 senreq.setText("Accept Friend Request");
                                 current_friends="receive";
                             }
+                            else if (reques_type.equals("accept")){
 
+                            }
+                            
                         }
                     }
 
@@ -104,12 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 });
 
-//                if (mKarar.getisCheck()){
-//                    System.out.println("Ilk dem"+mKarar.getisCheck());
-//                    senreq.setBackgroundResource(R.drawable.button_back3);
-//                    senreq.setText("Your Friend");
-//                    current_friends="accept";
-//                }
+
                 mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -151,35 +149,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-         mFriendRequestbeta.addChildEventListener(new ChildEventListener() {
-             @Override
-             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-             }
-
-             @Override
-             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-             }
-
-             @Override
-             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                 senreq.setBackgroundResource(R.drawable.button_back3);
-                 senreq.setText("Your Friend");
-                 current_friends="accept";
-
-             }
-
-             @Override
-             public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-             }
-
-             @Override
-             public void onCancelled(@NonNull DatabaseError error) {
-
-             }
-         });
 
 
         senreq.setOnClickListener(new View.OnClickListener() {
