@@ -51,7 +51,7 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 
                 HashMap<String,String> values=new HashMap<>();
                 Users user;
-
+                usersList.clear();
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
                     System.out.println(data.getKey());
