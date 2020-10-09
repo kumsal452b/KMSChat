@@ -27,6 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kongzue.dialog.util.view.ProgressView;
+import com.kongzue.dialog.v3.MessageDialog;
+import com.kongzue.dialog.v3.WaitDialog;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -49,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ValueEventListener mValueListener;
     private Karar mKarar;
     private DatabaseReference chechFriend;
-
+    private ProgressView progressView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
         mFriendRequest = FirebaseDatabase.getInstance().getReference().child("Friends_req");
         mFriendRequestbeta=FirebaseDatabase.getInstance().getReference().child("Friends_req");
         maddFriendsDatabase=FirebaseDatabase.getInstance().getReference().child("friendList");
-
+        progressView=new ProgressView(this);
+        WaitDialog.show(this,"Loading");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         chechIsFr(user.getUid(),clikedUserId);
@@ -79,6 +83,9 @@ public class ProfileActivity extends AppCompatActivity {
                 String status1 = snapshot.child("status").getValue() + "";
                 String image = snapshot.child("imagesUrl").getValue() + "";
 
+                if (image.equals("") || image.equals(null)){
+                    image="empty";
+                }
                 status.setText(status1);
                 profile_display.setText(Display_name);
                 Picasso.get().load(image).into(imageView);
@@ -109,6 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                             }
                         }
+                        WaitDialog.dismiss();
                     }
 
                     @Override
@@ -118,38 +126,38 @@ public class ProfileActivity extends AppCompatActivity {
                 });
 
 
-                mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                            String checkId=snapshot.getKey();
-                                if (!checkId.equals("") && !checkId.equals(null)){
-                                    if (user.getUid().equals(checkId)){
-                                        senreq.setBackgroundResource(R.drawable.button_back);
-                                        senreq.setText("Send Friend Request");
-                                        current_friends="no_friends";
-                                    }
-                                }
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                mListenerRquestFriend=mFriendRequest.addChildEventListener(new ChildEventListener() {
+//                    @Override
+//                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    }
+//
+//                    @Override
+//                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//                            String checkId=snapshot.getKey();
+//                                if (!checkId.equals("") && !checkId.equals(null)){
+//                                    if (user.getUid().equals(checkId)){
+//                                        senreq.setBackgroundResource(R.drawable.button_back);
+//                                        senreq.setText("Send Friend Request");
+//                                        current_friends="no_friends";
+//                                    }
+//                                }
+//                    }
+//
+//                    @Override
+//                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
             }
 
@@ -182,75 +190,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
-        ;
 
-//        senreq.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                senreq.setEnabled(false);
-//                System.out.println(current_friends);
-//                // bu ne current_firend
-//                //Her butona tiklandiginda kullanicinin istek gondermesini tutuyor
-//                // ctrl ye basılı tutup tıklayabilir misin current_friendse
-//                //O bir field yani string
-//                if (user.getUid().equals(getIntent().getStringExtra("ui"))) {
-//                    Toast.makeText(ProfileActivity.this,
-//                            "you shouldn't send yourself a friend request", Toast.LENGTH_LONG).show();
-//                    return;
-//                }
-//                if (current_friends.equals("not_friends")) {
-//
-//                    mFriendRequest.child(user.getUid()).child(getIntent().getStringExtra("ui")).child("request_type").setValue("send")
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                                }
-//                            }).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            mFriendRequest.child(getIntent().getStringExtra("ui")).child(user.getUid()).child("request_type").setValue("received");
-//                            senreq.setEnabled(true);
-//                            current_friends = "req_send";
-//                            senreq.setText("Cancel Request");
-//                            senreq.setBackgroundColor(Color.RED);
-//                            Toast.makeText(ProfileActivity.this, "Succes", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-//
-//
-//                }
-//                if (current_friends.equals("req_send")) {
-//                    mFriendRequest.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                        @Override
-//                        public void onSuccess(Void aVoid) {
-//                            mFriendRequest.child(getIntent().getStringExtra("ui")).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    senreq.setBackgroundColor(R.drawable.button_back);
-//                                    current_friends = "not_friends";
-//                                    senreq.setText("Send Friend Request");
-//                                    senreq.setEnabled(true);
-//                                    Toast.makeText(ProfileActivity.this, "Request deleting succes", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }).addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Toast.makeText(ProfileActivity.this, "Received " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                                }
-//                            });
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(ProfileActivity.this, "Send " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//
-//                }
-//            }
-//        });
     }
 
     @Override
