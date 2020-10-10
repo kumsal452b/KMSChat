@@ -17,14 +17,17 @@
 
         <include
             android:id="@+id/main_page_toolbar"
-            layout="@layout/app_toolbar_layout" />
+            layout="@layout/app_toolbar_layout"
+            android:background="#100E0E" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabSelectedTextColor="#EFE8E8"
-            app:tabTextColor="#F8F8F8" />
+            android:layout_height="58dp"
+            android:background="#150E0E"
+            app:tabRippleColor="#0C0909"
+            app:tabSelectedTextColor="#161C95"
+            app:tabTextColor="#0C1F80" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
