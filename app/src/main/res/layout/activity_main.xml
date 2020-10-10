@@ -27,7 +27,7 @@
             android:background="#150E0E"
             app:tabRippleColor="#0C0909"
             app:tabSelectedTextColor="#161C95"
-            app:tabTextColor="#0C1F80" />
+            app:tabTextColor="#1E88E5" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
