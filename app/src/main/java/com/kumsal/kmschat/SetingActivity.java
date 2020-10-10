@@ -90,6 +90,8 @@ public class SetingActivity extends AppCompatActivity {
         getmProgresDialog.show();
         changeimage.setVisibility(View.INVISIBLE);
         changestatus.setVisibility(View.INVISIBLE);
+        mRefDatabase.keepSynced(true);
+
        dbListener= mRefDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
