@@ -18,10 +18,13 @@
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_toolbar_layout" />
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_tabs_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="#EFE8E8"
+            app:tabTextColor="#F8F8F8" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager
