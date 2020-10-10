@@ -8,6 +8,14 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     app:subtitleTextColor="#1E88E5"
     app:titleTextColor="#1E88E5">
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/gfs"
+        >
+    </de.hdodenhof.circleimageview.CircleImageView>
 
 </androidx.appcompat.widget.Toolbar>
