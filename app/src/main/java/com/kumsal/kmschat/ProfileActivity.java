@@ -167,6 +167,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        if (user.getUid().equals(clikedUserId)){
+            senreq.setEnabled(false);
+
+        }
 
 
         senreq.setOnClickListener(new View.OnClickListener() {
