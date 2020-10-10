@@ -8,19 +8,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private ViewPager mViewPager;
     private SectionPagerAdapter mPagerAdapter;
     private TableLayout tabLayout;
     private TabLayout tabLayout1;
+    private CircleImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +37,18 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("KMSChat");
 
+        imageView=findViewById(R.id.gfs);
         mViewPager=findViewById(R.id.main_pageview);
         mPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
