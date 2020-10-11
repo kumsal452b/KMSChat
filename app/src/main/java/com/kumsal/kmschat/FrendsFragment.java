@@ -33,7 +33,7 @@ public class FrendsFragment extends Fragment {
         mCurrent_user_id=user.getUid();
         mFriendsDatabase= FirebaseDatabase.getInstance().getReference().child("friendList").child(mCurrent_user_id);
         mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
-        
+
         return inflater.inflate(R.layout.fragment_frends, container, false);
     }
 }
