@@ -45,6 +45,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
                 HashMap<String,String> values=(HashMap<String,String>)snapshot.getValue();
                 holder.displayName.setText(values.get("name"));
                 Picasso.get().load(values.get("imagesUrl")).into(holder.imageView);
+                
             }
 
             @Override
