@@ -17,6 +17,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsViewHolder> {
     private List<FriendModdel> moddelList;
     private Context context;
+    private  
     @NonNull
     @Override
     public friendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -26,6 +27,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
 
     @Override
     public void onBindViewHolder(@NonNull friendsViewHolder holder, int position) {
+        FriendModdel moddel=moddelList.get(position);
+
 
     }
 
