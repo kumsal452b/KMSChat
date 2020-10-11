@@ -15,22 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name=".Deneme.Notification"
-            android:exported="false"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".Deneme.id"
-            android:exported="true"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
         <activity android:name=".ProfileActivity"></activity>
         <activity
             android:name=".UserActıvıty"
