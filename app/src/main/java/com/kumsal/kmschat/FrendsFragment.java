@@ -40,7 +40,9 @@ public class FrendsFragment extends Fragment {
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                for (DataSnapshot get: snapshot.getValue()){
+                    
+                }
             }
 
             @Override
