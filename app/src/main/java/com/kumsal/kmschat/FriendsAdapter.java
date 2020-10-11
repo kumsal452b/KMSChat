@@ -26,6 +26,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
     private List<FriendModdel> moddelList;
     private Context context;
 
+    public FriendsAdapter(List<FriendModdel> moddelList, Context context) {
+        this.moddelList = moddelList;
+        this.context = context;
+    }
 
     @NonNull
     @Override

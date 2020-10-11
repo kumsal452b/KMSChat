@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FrendsFragment extends Fragment {
@@ -30,6 +31,8 @@ public class FrendsFragment extends Fragment {
     private RecyclerView mFriendList;
     private List<FriendModdel> friendModdels;
     private FriendsAdapter adapter;
+    private FriendModdel object;
+    private HashMap<String,String> values;
     public FrendsFragment() {
         // Required empty public constructor
     }
@@ -46,11 +49,14 @@ public class FrendsFragment extends Fragment {
         mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
         mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendList.setHasFixedSize(true);
+        adapter=new FriendsAdapter(,)
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot get: snapshot.getChildren()){
-                        
+                        values=( HashMap<String,String>)get.getValue();
+                        object=new FriendModdel(values.get("date"),get.getKey());
+                        friendModdels.add(object);
                 }
             }
 
