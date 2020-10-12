@@ -34,6 +34,7 @@ public class FrendsFragment extends Fragment {
     private FriendModdel object;
     private HashMap<String,String> values;
     private DatabaseReference mRef;
+    private HashMap<String, String> values2;
 
     public FrendsFragment() {
         // Required empty public constructor
@@ -67,7 +68,10 @@ public class FrendsFragment extends Fragment {
                         mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                                values2=( HashMap<String,String>)snapshot.getValue();
+                                object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"));
+                                friendModdels.add(object);
+                                
                             }
 
                             @Override
