@@ -78,7 +78,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
             displayName=itemView.findViewById(R.id.user_single_name);
             imageView=itemView.findViewById(R.id.user_single_imageview);
 
-            mRef= FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         }
     }
