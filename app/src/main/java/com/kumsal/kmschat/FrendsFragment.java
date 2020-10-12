@@ -56,7 +56,7 @@ public class FrendsFragment extends Fragment {
         mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
         mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendList.setHasFixedSize(true);
-        adapter=new FriendsAdapter(friendModdels,getContext());
+
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -65,6 +65,7 @@ public class FrendsFragment extends Fragment {
                         object=new FriendModdel(values.get("date"),get.getKey());
                         friendModdels.add(object);
                 }
+                adapter=new FriendsAdapter(friendModdels,getContext());
                 mFriendList.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
