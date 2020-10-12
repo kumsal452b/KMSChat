@@ -33,6 +33,8 @@ public class FrendsFragment extends Fragment {
     private FriendsAdapter adapter;
     private FriendModdel object;
     private HashMap<String,String> values;
+    private DatabaseReference mRef;
+
     public FrendsFragment() {
         // Required empty public constructor
     }
@@ -56,13 +58,24 @@ public class FrendsFragment extends Fragment {
         mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
         mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendList.setHasFixedSize(true);
-
+        mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot get: snapshot.getChildren()){
                         values=( HashMap<String,String>)get.getValue();
-                        
+                        mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                 }
                 adapter=new FriendsAdapter(friendModdels,getContext());
                 mFriendList.setAdapter(adapter);
