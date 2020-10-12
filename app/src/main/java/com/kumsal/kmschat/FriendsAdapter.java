@@ -41,7 +41,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
     @Override
     public void onBindViewHolder(@NonNull final friendsViewHolder holder, int position) {
         final FriendModdel moddel=moddelList.get(position);
-
+        System.out.println("Date "+moddel.getDate());
         holder.mRef.child(moddel.getmKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
