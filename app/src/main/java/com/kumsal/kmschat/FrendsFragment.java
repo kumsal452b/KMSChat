@@ -44,6 +44,23 @@ public class FrendsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         System.out.println("run onStart");
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        System.out.println("run oncreateView");
+        mMainView=inflater.inflate(R.layout.fragment_frends, container, false);
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser user=mAuth.getCurrentUser();
+        mCurrent_user_id=user.getUid();
+        friendModdels=new ArrayList<>();
+        mFriendsDatabase= FirebaseDatabase.getInstance().getReference().child("friendList").child(mCurrent_user_id);
+        mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
+        mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mFriendList.setHasFixedSize(true);
+        mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,23 +92,6 @@ public class FrendsFragment extends Fragment {
 
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        System.out.println("run oncreateView");
-        mMainView=inflater.inflate(R.layout.fragment_frends, container, false);
-        mAuth=FirebaseAuth.getInstance();
-        FirebaseUser user=mAuth.getCurrentUser();
-        mCurrent_user_id=user.getUid();
-        friendModdels=new ArrayList<>();
-        mFriendsDatabase= FirebaseDatabase.getInstance().getReference().child("friendList").child(mCurrent_user_id);
-        mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
-        mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mFriendList.setHasFixedSize(true);
-        mRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
         return inflater.inflate(R.layout.fragment_frends, container, false);
     }
 }
