@@ -62,8 +62,7 @@ public class FrendsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot get: snapshot.getChildren()){
                         values=( HashMap<String,String>)get.getValue();
-                        object=new FriendModdel(values.get("date"),get.getKey());
-                        friendModdels.add(object);
+                        
                 }
                 adapter=new FriendsAdapter(friendModdels,getContext());
                 mFriendList.setAdapter(adapter);
