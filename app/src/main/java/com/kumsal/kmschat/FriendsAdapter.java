@@ -41,25 +41,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
     @Override
     public void onBindViewHolder(@NonNull final friendsViewHolder holder, int position) {
         final FriendModdel moddel=moddelList.get(position);
-        System.out.println("Date "+moddel.getDate());
-        holder.mRef.child(moddel.getmKey()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println("Date "+moddel.getDate());
-                holder.date.setText(moddel.getDate());
-                HashMap<String,String> values=(HashMap<String,String>)snapshot.getValue();
-                holder.displayName.setText(values.get("name"));
-                Picasso.get().load(values.get("imagesUrl")).into(holder.imageView);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
+        holder.displayName.setText(moddel.getmDisplayName());
+        holder.date.setText(moddel.getDate());
+        Picasso.get().load(moddel.getImageUrl()).into(holder.imageView);
     }
 
     @Override
