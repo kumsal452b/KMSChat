@@ -38,8 +38,15 @@ public class FrendsFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("run onStart");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("run oncreateView");
         mMainView=inflater.inflate(R.layout.fragment_frends, container, false);
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
@@ -58,8 +65,8 @@ public class FrendsFragment extends Fragment {
                         object=new FriendModdel(values.get("date"),get.getKey());
                         friendModdels.add(object);
                 }
-                adapter.notifyDataSetChanged();
                 mFriendList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
