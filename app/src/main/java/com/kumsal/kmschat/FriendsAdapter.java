@@ -45,6 +45,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
         holder.mRef.child(moddel.getmKey()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("Date "+moddel.getDate());
                 holder.date.setText(moddel.getDate());
                 HashMap<String,String> values=(HashMap<String,String>)snapshot.getValue();
                 holder.displayName.setText(values.get("name"));

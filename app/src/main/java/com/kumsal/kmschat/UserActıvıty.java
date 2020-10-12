@@ -54,7 +54,6 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
                 usersList.clear();
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
-                    System.out.println(data.getKey());
                     if (TextUtils.isEmpty(values.get("thumbalimage"))){
                         user=new Users(values.get("name"),values.get("status"),"empty",data.getKey());
                     }else{
