@@ -1,6 +1,7 @@
 package com.kumsal.kmschat;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -34,7 +35,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
     @NonNull
     @Override
     public friendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=View.inflate(context,R.layout.user_single,parent);
+        View view= LayoutInflater.from(context).inflate(R.layout.user_single,parent,false);
         return new friendsViewHolder(view);
     }
 
