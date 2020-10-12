@@ -44,6 +44,37 @@ public class FrendsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         System.out.println("run onStart");
+        mFriendsDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot get: snapshot.getChildren()){
+                    values=( HashMap<String,String>)get.getValue();
+                    mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            values2=( HashMap<String,String>)snapshot.getValue();
+                            object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"));
+                            friendModdels.add(object);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+                adapter=new FriendsAdapter(friendModdels,getContext());
+                mFriendList.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -60,37 +91,7 @@ public class FrendsFragment extends Fragment {
         mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendList.setHasFixedSize(true);
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        mFriendsDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot get: snapshot.getChildren()){
-                        values=( HashMap<String,String>)get.getValue();
-                        mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                values2=( HashMap<String,String>)snapshot.getValue();
-                                object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"));
-                                friendModdels.add(object);
-                                
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-                }
-                adapter=new FriendsAdapter(friendModdels,getContext());
-                mFriendList.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         return inflater.inflate(R.layout.fragment_frends, container, false);
     }
 }
