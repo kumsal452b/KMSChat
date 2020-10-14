@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.kongzue.dialog.v3.WaitDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         mToolbar=findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("KMSChat");
-
+        WaitDialog.show(this,"Please wait");
         imageView=findViewById(R.id.gfs);
         mViewPager=findViewById(R.id.main_pageview);
         mPagerAdapter=new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        mViewPager.setCurrentItem(2);
+        WaitDialog.dismiss();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
