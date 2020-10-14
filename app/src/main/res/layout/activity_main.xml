@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,17 +7,21 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="134dp"
+        android:id="@+id/appBarLayout"
+        android:layout_width="418dp"
+        android:layout_height="117dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <include
             android:id="@+id/main_page_toolbar"
             layout="@layout/app_toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
             android:background="#100E0E" />
 
         <com.google.android.material.tabs.TabLayout
@@ -32,23 +36,25 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_pageview"
-        android:layout_width="match_parent"
-        android:layout_height="597dp"
+        android:layout_width="407dp"
+        android:layout_height="553dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="134dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.977">
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="This is Main page"
+            android:textSize="20sp" />
     </androidx.viewpager.widget.ViewPager>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="111dp"
-        android:layout_marginTop="314dp"
-        android:text="This is Main page"
-        android:textSize="20sp" />
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
