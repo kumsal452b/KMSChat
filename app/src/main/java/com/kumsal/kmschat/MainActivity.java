@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ViewPager mViewPager;
     private SectionPagerAdapter mPagerAdapter;
-    private TableLayout tabLayout;
     private TabLayout tabLayout1;
     private CircleImageView imageView;
 
