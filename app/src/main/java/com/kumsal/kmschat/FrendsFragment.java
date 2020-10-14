@@ -3,6 +3,7 @@ package com.kumsal.kmschat;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
@@ -89,6 +90,7 @@ public class FrendsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         System.out.println("run oncreateView");
+        WaitDialog.show((AppCompatActivity) getContext(),"selam ");
         mMainView=inflater.inflate(R.layout.fragment_frends, container, false);
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
@@ -100,7 +102,7 @@ public class FrendsFragment extends Fragment {
         mFriendList.setHasFixedSize(true);
 
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
+        WaitDialog.dismiss();
         return mMainView;
     }
 }
