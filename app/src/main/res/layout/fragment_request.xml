@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".RequestFragment">
 
-    <TextView
+    <ListView
+        android:id="@+id/deneme"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Request Page" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>
