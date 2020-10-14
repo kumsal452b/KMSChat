@@ -33,11 +33,11 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_pageview"
         android:layout_width="match_parent"
-        android:layout_height="601dp"
+        android:layout_height="616dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="130dp">
+        android:layout_marginTop="115dp">
 
 
     </androidx.viewpager.widget.ViewPager>
