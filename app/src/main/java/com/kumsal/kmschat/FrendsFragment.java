@@ -53,6 +53,7 @@ public class FrendsFragment extends Fragment {
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                friendModdels.clear();
                 for (DataSnapshot get: snapshot.getChildren()){
                     values=( HashMap<String,String>)get.getValue();
                     mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
