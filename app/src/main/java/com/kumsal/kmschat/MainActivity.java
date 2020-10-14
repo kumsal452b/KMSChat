@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
+        mViewPager.setCurrentItem(2);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
