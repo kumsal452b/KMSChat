@@ -89,8 +89,6 @@ public class FrendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        System.out.println("run oncreateView");
-        WaitDialog.show((AppCompatActivity) getContext(),"selam ");
         mMainView=inflater.inflate(R.layout.fragment_frends, container, false);
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
