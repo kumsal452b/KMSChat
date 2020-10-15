@@ -15,6 +15,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,9 +43,11 @@ public class RequestFragment extends Fragment {
     }
 
 
+    private  int sayac=0;
     @Override
     public void onStart() {
         super.onStart();
+
 
         mFriendDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -62,7 +65,9 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
-
+                                mAdapter.notifyDataSetChanged();
+                                sayac++;
+                                System.out.println("deneme "+sayac);
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -75,7 +80,7 @@ public class RequestFragment extends Fragment {
 
 
                 recyclerView.setAdapter(mAdapter);
-                mAdapter.notifyDataSetChanged();
+
 
             }
             @Override
