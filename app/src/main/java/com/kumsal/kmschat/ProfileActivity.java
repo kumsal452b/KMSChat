@@ -208,10 +208,10 @@ public class ProfileActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
 
         if (item.getTitle().equals("Delete Friendship")){
-            chechFriend.child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            chechFriend.child(user.getUid()).child(clikedUserId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    chechFriend.child(clikedUserId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    chechFriend.child(clikedUserId).child(user.getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
 
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -437,7 +437,6 @@ public class ProfileActivity extends AppCompatActivity {
                                     mFriendRequestbeta.child(recFriendId).child(sendFrendId).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(ProfileActivity.this, "Success delete", Toast.LENGTH_SHORT).show();
                                             senreq.setBackgroundResource(R.drawable.button_back3);
                                             senreq.setText("Your Friend");
                                             current_friends="accept";
