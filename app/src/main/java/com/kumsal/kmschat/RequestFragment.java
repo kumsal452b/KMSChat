@@ -50,7 +50,7 @@ public class RequestFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
-//                personValue.clear();
+                personValue.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
                     if (requestType.equals("receive")){
@@ -62,8 +62,7 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
-                                mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
-                                recyclerView.setAdapter(mAdapter);
+
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -74,7 +73,9 @@ public class RequestFragment extends Fragment {
                 }
                 WaitDialog.dismiss();
 
-//                mAdapter.notifyDataSetChanged();
+
+                recyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
 
             }
             @Override
@@ -98,7 +99,7 @@ public class RequestFragment extends Fragment {
         UID=mAuth.getUid();
         mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req").child(UID);
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
-
+        mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
         return view;
     }
 }
