@@ -52,7 +52,7 @@ public class RequestFragment extends Fragment {
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
                     if (requestType.equals("receive")){
-                        mUsers.child(UID).addValueEventListener(new ValueEventListener() {
+                        mUsers.child(data.getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String iUrl=snapshot.child("thumbalimage").getValue().toString();
