@@ -45,11 +45,12 @@ public class RequestFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
-        mFriendDatabase.child(UID).addValueEventListener(new ValueEventListener() {
+
+        mFriendDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                personValue.clear();
+                WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
+//                personValue.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
                     if (requestType.equals("receive")){
@@ -92,7 +93,7 @@ public class RequestFragment extends Fragment {
         mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
         mAuth=FirebaseAuth.getInstance();
         UID=mAuth.getUid();
-        mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req");
+        mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req").child(UID);
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
 
         return view;
