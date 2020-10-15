@@ -54,8 +54,11 @@ public class RequestFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
                 personValue.clear();
+                final int count=(int)snapshot.getChildrenCount();
+                System.out.println("for basladi");
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
+
                     if (requestType.equals("receive")){
                         mUsers.child(data.getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -65,10 +68,7 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
-                                System.out.println(personValue.get(sayac)+"");
-                                mAdapter.notifyDataSetChanged();
-                                sayac++;
-                                System.out.println("deneme "+sayac);
+
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -77,8 +77,10 @@ public class RequestFragment extends Fragment {
                         });
                     }
                 }
+                System.out.println("for sonlandi");
                 WaitDialog.dismiss();
 
+                mAdapter.notifyAll();
 
                 recyclerView.setAdapter(mAdapter);
 
