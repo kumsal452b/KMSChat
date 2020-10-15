@@ -65,6 +65,7 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
+                                System.out.println(personValue.get(sayac)+"");
                                 mAdapter.notifyDataSetChanged();
                                 sayac++;
                                 System.out.println("deneme "+sayac);
