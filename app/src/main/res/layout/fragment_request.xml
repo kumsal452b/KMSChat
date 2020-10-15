@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".RequestFragment">
 
-    <ListView
-        android:id="@+id/deneme"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_request_recyler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#1E88E5" />
 </FrameLayout>
