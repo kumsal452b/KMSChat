@@ -17,7 +17,6 @@
             android:id="@+id/request_friend_image"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:layout_marginTop=""
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
