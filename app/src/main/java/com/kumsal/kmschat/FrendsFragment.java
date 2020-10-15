@@ -49,7 +49,6 @@ public class FrendsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        System.out.println("Activite "+ getActivity());
         mFriendsDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

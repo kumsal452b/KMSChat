@@ -45,6 +45,7 @@ public class RequestFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
         mFriendDatabase.child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,6 +69,7 @@ public class RequestFragment extends Fragment {
                         });
                     }
                 }
+                WaitDialog.dismiss();
                 mAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(mAdapter);
             }
