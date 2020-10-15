@@ -43,33 +43,16 @@ public class RequestFragment extends Fragment {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_request,container,false);
-        recyclerView=view.findViewById(R.id.fragment_request_recyler);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        personValue=new ArrayList<>();
-        mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
-        mAuth=FirebaseAuth.getInstance();
-        UID=mAuth.getUid();
-        mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req");
-        mUsers=FirebaseDatabase.getInstance().getReference("Users");
+    public void onStart() {
+        super.onStart();
         mFriendDatabase.child(UID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                 personValue.clear();
+                personValue.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
-                    String requestType=data.getValue()+"";
+                    String requestType=data.child("request_type").getValue()+"";
                     if (requestType.equals("receive")){
-                        mUsers.addValueEventListener(new ValueEventListener() {
+                        mUsers.child(UID).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String iUrl=snapshot.child("thumbalimage").getValue().toString();
@@ -93,6 +76,23 @@ public class RequestFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_request,container,false);
+        recyclerView=view.findViewById(R.id.fragment_request_recyler);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        personValue=new ArrayList<>();
+        mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
+        mAuth=FirebaseAuth.getInstance();
+        UID=mAuth.getUid();
+        mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req");
+        mUsers=FirebaseDatabase.getInstance().getReference("Users");
+
         return view;
     }
 }
