@@ -62,6 +62,8 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
+                                mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
+                                recyclerView.setAdapter(mAdapter);
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -71,8 +73,9 @@ public class RequestFragment extends Fragment {
                     }
                 }
                 WaitDialog.dismiss();
-                mAdapter.notifyDataSetChanged();
-                recyclerView.setAdapter(mAdapter);
+
+//                mAdapter.notifyDataSetChanged();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -90,7 +93,7 @@ public class RequestFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         personValue=new ArrayList<>();
-        mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
+
         mAuth=FirebaseAuth.getInstance();
         UID=mAuth.getUid();
         mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req").child(UID);
