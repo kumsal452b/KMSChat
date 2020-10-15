@@ -1,13 +1,20 @@
 package com.kumsal.kmschat;
 
 import android.content.Context;
+
 import android.view.View;
+
 import android.view.ViewGroup;
 
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFriendFragmentAdapter.FriendRequestHolder> {
 
@@ -36,10 +43,13 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
     }
 
     public class FriendRequestHolder extends RecyclerView.ViewHolder{
-
+        public CircleImageView imageView;
+        public TextView dispayName,status;
         public FriendRequestHolder(@NonNull View itemView) {
-
             super(itemView);
+            imageView=itemView.findViewById(R.id.request_friend_image);
+            dispayName=itemView.findViewById(R.id.request_friend_displayName);
+            status=itemView.findViewById(R.id.request_friend_status);
         }
     }
 }

@@ -35,10 +35,7 @@ public class RequestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       
-        ListAdapter adapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,deney);
-        listView.setAdapter(adapter);
-        WaitDialog.dismiss();
+
         return view;
     }
 }
