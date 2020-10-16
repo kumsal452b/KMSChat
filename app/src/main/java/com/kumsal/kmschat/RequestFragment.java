@@ -71,8 +71,7 @@ public class RequestFragment extends Fragment {
                                 personValue.add(mUsers1);
                                 mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
                                 mAdapter.notifyDataSetChanged();
-
-
+                                recyclerView.setAdapter(mAdapter);
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -82,7 +81,7 @@ public class RequestFragment extends Fragment {
                     }
                 }
                 WaitDialog.dismiss();
-                recyclerView.setAdapter(mAdapter);
+
 
 
             }
