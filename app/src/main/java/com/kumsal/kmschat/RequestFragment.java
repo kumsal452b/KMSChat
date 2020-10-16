@@ -45,8 +45,6 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
     public RequestFragment() {
     }
 
-
-    private  int sayac=0;
     @Override
     public void onStart() {
         super.onStart();
@@ -79,17 +77,22 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
+                                WaitDialog.dismiss();
                             }
                         });
+                    }else{
+                        WaitDialog.dismiss();
                     }
                 }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                WaitDialog.dismiss();
             }
         });
+        mFriendDatabase.keepSynced(true);
+        mUsers.keepSynced(true);
+        WaitDialog.dismiss(5000);
     }
 
     @Override
