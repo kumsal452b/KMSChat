@@ -65,6 +65,7 @@ public class FrendsFragment extends Fragment {
                             adapter=new FriendsAdapter(friendModdels,getContext());
                             mFriendList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            System.out.println("arkadas alani calisti");
 
                         }
 
