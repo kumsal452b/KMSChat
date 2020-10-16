@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user=mAuth.getCurrentUser();
         if (user==null){
            startTostart();
+        }else{
+
         }
     }
 
