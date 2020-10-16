@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FrendsFragment extends Fragment {
+public class FrendsFragment extends Fragment{
     private View mMainView;
     private String mCurrent_user_id;
     private FirebaseAuth mAuth;
@@ -100,5 +100,10 @@ public class FrendsFragment extends Fragment {
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         WaitDialog.dismiss();
         return mMainView;
+    }
+
+    @Override
+    public void ButtonClick(int position) {
+
     }
 }

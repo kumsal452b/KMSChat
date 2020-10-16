@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,7 +82,7 @@ public class RequestFragment extends Fragment {
                     }
                 }
                 WaitDialog.dismiss();
-
+                mAdapter.setOnItemClickListener();
 
 
             }
