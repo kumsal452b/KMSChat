@@ -15,9 +15,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFriendFragmentAdapter.FriendRequestHolder> {
 
     private Context context;
-
     private List<Users> userValue;
-
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener{
