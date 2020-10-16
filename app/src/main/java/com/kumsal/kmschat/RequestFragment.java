@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class RequestFragment extends Fragment {
+public class RequestFragment extends Fragment implements RequestFriendFragmentAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
     private List<Users> personValue;
@@ -82,8 +82,7 @@ public class RequestFragment extends Fragment {
                     }
                 }
                 WaitDialog.dismiss();
-                mAdapter.setOnItemClickListener();
-
+                mAdapter.setOnItemClickListener((RequestFriendFragmentAdapter.OnItemClickListener) getActivity());
 
             }
             @Override
@@ -109,5 +108,10 @@ public class RequestFragment extends Fragment {
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
         mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
         return view;
+    }
+
+    @Override
+    public void ButtonClick(int position) {
+
     }
 }
