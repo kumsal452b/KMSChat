@@ -30,7 +30,6 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
         this.context = context;
         this.userValue = userValue;
     }
-
     @NonNull
     @Override
     public FriendRequestHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
