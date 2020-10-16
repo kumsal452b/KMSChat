@@ -17,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.JsonUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,12 +56,12 @@ public class RequestFragment extends Fragment {
                 WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
                 personValue.clear();
                 final int count=(int)snapshot.getChildrenCount();
-                System.out.println("for basladi");
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
-
                     if (requestType.equals("receive")){
+
                         mUsers.child(data.getKey()).addValueEventListener(new ValueEventListener() {
+
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String iUrl=snapshot.child("thumbalimage").getValue().toString();
@@ -68,6 +69,9 @@ public class RequestFragment extends Fragment {
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
+                                mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
+                                mAdapter.notifyDataSetChanged();
+
 
                             }
                             @Override
@@ -77,11 +81,7 @@ public class RequestFragment extends Fragment {
                         });
                     }
                 }
-                System.out.println("for sonlandi");
                 WaitDialog.dismiss();
-
-                mAdapter.notifyAll();
-
                 recyclerView.setAdapter(mAdapter);
 
 
