@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
-public class KMSChat extends Application {
+public class KMSChat extends Application implements RequestFriendFragmentAdapter.OnItemClickListener {
     private DatabaseReference mUserDb;
     private FirebaseAuth mAuth;
 
@@ -29,6 +29,8 @@ public class KMSChat extends Application {
         built.setIndicatorsEnabled(true);
         built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
+        RequestFriendFragmentAdapter deneme=null;
+        deneme.setOnItemClickListener(this);
         mAuth=FirebaseAuth.getInstance();
         mUserDb=FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
         mUserDb.addValueEventListener(new ValueEventListener() {
@@ -45,5 +47,10 @@ public class KMSChat extends Application {
 
             }
         });
+    }
+
+    @Override
+    public void ButtonClick(int position) {
+
     }
 }
