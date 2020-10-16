@@ -1,5 +1,6 @@
 package com.kumsal.kmschat;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -51,6 +52,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         super.onStart();
 
 
+        mAdapter.setOnItemClickListener(this);
         mFriendDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,6 +75,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                 mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
                                 mAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(mAdapter);
+                                WaitDialog.dismiss();
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
@@ -81,9 +84,6 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                         });
                     }
                 }
-                WaitDialog.dismiss();
-                mAdapter.setOnItemClickListener((RequestFriendFragmentAdapter.OnItemClickListener) getActivity());
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -107,11 +107,12 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req").child(UID);
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
         mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
+
         return view;
     }
 
     @Override
     public void ButtonClick(int position) {
-
+        System.out.println("Run in");
     }
 }

@@ -101,5 +101,5 @@ public class FrendsFragment extends Fragment{
         WaitDialog.dismiss();
         return mMainView;
     }
-    
+
 }
