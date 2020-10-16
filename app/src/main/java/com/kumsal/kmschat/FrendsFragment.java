@@ -61,12 +61,9 @@ public class FrendsFragment extends Fragment {
                             values2=( HashMap<String,String>)snapshot.getValue();
                             object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"));
                             friendModdels.add(object);
-
                             adapter=new FriendsAdapter(friendModdels,getContext());
                             mFriendList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
-                            System.out.println("arkadas alani calisti");
-
                         }
 
                         @Override
