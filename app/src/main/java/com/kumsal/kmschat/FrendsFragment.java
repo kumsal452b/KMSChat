@@ -101,9 +101,5 @@ public class FrendsFragment extends Fragment{
         WaitDialog.dismiss();
         return mMainView;
     }
-
-    @Override
-    public void ButtonClick(int position) {
-
-    }
+    
 }
