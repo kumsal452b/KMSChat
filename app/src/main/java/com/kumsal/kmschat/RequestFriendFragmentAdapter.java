@@ -68,9 +68,9 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
         @Override
         public void onClick(View view) {
             if (mListener!=null){
-                int positon=getAdapterPosition();
-                if (positon!=RecyclerView.NO_POSITION){
-                    mListener.ButtonClick(positon);
+                int position=getAdapterPosition();
+                if (position!=RecyclerView.NO_POSITION){
+                    mListener.ButtonClick(position);
                 }
             }
         }
