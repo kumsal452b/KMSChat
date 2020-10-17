@@ -35,6 +35,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
         final FriendModdel moddel=moddelList.get(position);
         holder.displayName.setText(moddel.getmDisplayName());
         holder.date.setText(moddel.getDate());
+        if (moddel.getImageUrl().equals("") || moddel.getImageUrl().equals(null)){
+            moddel.setImageUrl("empty");
+        }
         Picasso.get().load(moddel.getImageUrl()).into(holder.imageView);
     }
 

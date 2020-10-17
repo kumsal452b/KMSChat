@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -51,7 +52,7 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
         return userValue.size();
     }
 
-    public class FriendRequestHolder extends RecyclerView.ViewHolder{
+    public class FriendRequestHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public CircleImageView imageView;
         public TextView dispayName,status;
         public Button btnAccept;
@@ -61,17 +62,17 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
             dispayName=itemView.findViewById(R.id.request_friend_displayName);
             status=itemView.findViewById(R.id.request_friend_status);
             btnAccept=itemView.findViewById(R.id.request_friend_accept);
-            btnAccept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (mListener!=null){
-                        int positon=getAdapterPosition();
-                        if (positon!=RecyclerView.NO_POSITION){
-                            mListener.ButtonClick(positon);
-                        }
-                    }
+            btnAccept.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (mListener!=null){
+                int positon=getAdapterPosition();
+                if (positon!=RecyclerView.NO_POSITION){
+                    mListener.ButtonClick(positon);
                 }
-            });
+            }
         }
     }
 }
