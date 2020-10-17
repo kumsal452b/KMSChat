@@ -42,15 +42,15 @@ import java.util.PriorityQueue;
 public class RequestFragment extends Fragment implements RequestFriendFragmentAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
-    private List<Users> personValue;
-    private RequestFriendFragmentAdapter mAdapter;
-    private DatabaseReference mFriendDatabase;
-    private DatabaseReference mUsers;
-    private String UID;
-    private FirebaseAuth mAuth;
-    private Users mUsers1;
-    private DatabaseReference maddFriendsDatabase;
-    private DatabaseReference mFriendRequestbeta;
+    private static List<Users> personValue;
+    private static RequestFriendFragmentAdapter mAdapter;
+    private static DatabaseReference mFriendDatabase;
+    private static DatabaseReference mUsers;
+    private static String UID;
+    private static FirebaseAuth mAuth;
+    private static Users mUsers1;
+    private static DatabaseReference maddFriendsDatabase;
+    private static DatabaseReference mFriendRequestbeta;
 
     public RequestFragment() {
     }
@@ -64,10 +64,8 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         mFriendDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
-
+                WaitDialog.show((AppCompatActivity) getContext(),"Please Wait");
                 personValue.clear();
-                final int count=(int)snapshot.getChildrenCount();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
                     final String userKey=data.getKey();
@@ -122,7 +120,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
         mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
         mAdapter.setOnItemClickListener(new RequestFragment());
-        mFriendDatabase=FirebaseDatabase.getInstance().getReference("friendList");
+        maddFriendsDatabase=FirebaseDatabase.getInstance().getReference("friendList");
         mFriendRequestbeta=FirebaseDatabase.getInstance().getReference("Friends_req");
 
         return view;
@@ -132,7 +130,8 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
     public void ButtonClick(int position){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
         final Users person=personValue.get(position);
-        maddFriendsDatabase.child(mUsers1.getUserID()).child(person.getUserID()).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
+        UID=mAuth.getUid();
+        maddFriendsDatabase.child(UID).child(person.getUserID()).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
@@ -140,21 +139,21 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                maddFriendsDatabase.child(person.getUserID()).child(mUsers1.getUserID()).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                maddFriendsDatabase.child(person.getUserID()).child(UID).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         HashMap<String,Object> hashMap=new HashMap<>();
                         hashMap.put("request_type","accept");
-                        mFriendRequestbeta.child(mUsers1.getUserID()).child(person.getUserID()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        mFriendRequestbeta.child(UID).child(person.getUserID()).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
                                     HashMap<String,Object> hashMap=new HashMap<>();
                                     hashMap.put("request_type","accept");
-                                    mFriendRequestbeta.child(person.getUserID()).child(mUsers1.getUserID()).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    mFriendRequestbeta.child(person.getUserID()).child(UID).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            mFriendDatabase.notifyAll();
+                                            Toast.makeText(getActivity(), "Succes", Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }
