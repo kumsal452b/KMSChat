@@ -402,30 +402,6 @@ public class ProfileActivity extends AppCompatActivity {
                 maddFriendsDatabase.child(recFriendId).child(sendFrendId).child("date").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-//                        mFriendRequestbeta.child(sendFrendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                mFriendRequestbeta.child(recFriendId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-//
-//                                    @Override
-//                                    public void onSuccess(Void aVoid) {
-//                                        senreq.setBackgroundResource(R.drawable.button_back3);
-//                                        senreq.setText("Your Friend");
-//                                        current_friends="accept";
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                                    }
-//                                });
-//                            }
-//                        }).addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//                                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-//                            }
-//                        });
                         HashMap<String,Object> hashMap=new HashMap<>();
                         hashMap.put("request_type","accept");
                         mFriendRequestbeta.child(sendFrendId).child(recFriendId).updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
