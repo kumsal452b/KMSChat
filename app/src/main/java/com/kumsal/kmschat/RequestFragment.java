@@ -155,7 +155,6 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                     mFriendRequestbeta.child(person.getUserID()).child(UID).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            personValue.remove(position);
                                             Toast.makeText(context, "Succes", Toast.LENGTH_LONG).show();
                                             WaitDialog.dismiss();
                                         }
