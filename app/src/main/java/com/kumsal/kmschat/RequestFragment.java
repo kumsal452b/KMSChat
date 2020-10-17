@@ -50,11 +50,12 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         super.onStart();
 
 
-        mAdapter.setOnItemClickListener(this);
+
         mFriendDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 WaitDialog.show((AppCompatActivity) getContext(),"Pkease Wait");
+
                 personValue.clear();
                 final int count=(int)snapshot.getChildrenCount();
                 for (DataSnapshot data: snapshot.getChildren()){
@@ -70,7 +71,6 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                 String status=snapshot.child("status").getValue().toString();
                                 mUsers1=new Users(name,status,iUrl,"");
                                 personValue.add(mUsers1);
-                                mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
                                 mAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(mAdapter);
                                 WaitDialog.dismiss();
@@ -110,7 +110,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         mFriendDatabase= FirebaseDatabase.getInstance().getReference("Friends_req").child(UID);
         mUsers=FirebaseDatabase.getInstance().getReference("Users");
         mAdapter=new RequestFriendFragmentAdapter(getContext(),personValue);
-
+        mAdapter.setOnItemClickListener(new RequestFragment());
         return view;
     }
 
