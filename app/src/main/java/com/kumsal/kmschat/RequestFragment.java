@@ -1,6 +1,7 @@
 package com.kumsal.kmschat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,7 @@ import java.util.PriorityQueue;
 public class RequestFragment extends Fragment implements RequestFriendFragmentAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
-    private static List<Users> personValue;
+    public static List<Users> personValue;
     private static RequestFriendFragmentAdapter mAdapter;
     private static DatabaseReference mFriendDatabase;
     private static DatabaseReference mUsers;
@@ -51,7 +52,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
     private static Users mUsers1;
     private static DatabaseReference maddFriendsDatabase;
     private static DatabaseReference mFriendRequestbeta;
-
+    private static Context context;
     public RequestFragment() {
     }
 
@@ -99,8 +100,6 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                 WaitDialog.dismiss();
             }
         });
-        mFriendDatabase.keepSynced(true);
-        mUsers.keepSynced(true);
         WaitDialog.dismiss(5000);
     }
 
@@ -111,7 +110,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         recyclerView=view.findViewById(R.id.fragment_request_recyler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        context=getActivity();
         personValue=new ArrayList<>();
 
         mAuth=FirebaseAuth.getInstance();
@@ -126,15 +125,18 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
         return view;
     }
 
+    public static List<Users> denek;
     @Override
-    public void ButtonClick(int position){
+    public void ButtonClick(final int position){
         final String currentDate= DateFormat.getDateInstance().format(new Date());
         final Users person=personValue.get(position);
+        denek=personValue;
+        WaitDialog.show((AppCompatActivity) context,"Please Wait");
         UID=mAuth.getUid();
         maddFriendsDatabase.child(UID).child(person.getUserID()).child("date").setValue(currentDate).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -153,7 +155,9 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                     mFriendRequestbeta.child(person.getUserID()).child(UID).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getActivity(), "Succes", Toast.LENGTH_LONG).show();
+                                            personValue.remove(position);
+                                            Toast.makeText(context, "Succes", Toast.LENGTH_LONG).show();
+                                            WaitDialog.dismiss();
                                         }
                                     });
                                 }
@@ -163,10 +167,18 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
         });
+        WaitDialog.dismiss(5000);
+    }
+
+    private void changeNotify(int position) {
+        denek.remove(position);
+        personValue=denek;
+        mAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(mAdapter);
     }
 }
