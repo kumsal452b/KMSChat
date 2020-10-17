@@ -40,6 +40,9 @@ public class RequestFriendFragmentAdapter extends RecyclerView.Adapter<RequestFr
         Users person=userValue.get(position);
         holder.status.setText(person.getStatus());
         holder.dispayName.setText(person.getName());
+        if (person.getImage().equals("") || person.getImage().equals(null)){
+            person.setImage("empty");
+        }
         Picasso.get().load(person.getImage()).into(holder.imageView);
     }
 
