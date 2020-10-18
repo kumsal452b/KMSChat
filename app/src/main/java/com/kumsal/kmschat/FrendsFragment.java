@@ -104,6 +104,8 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
 
     @Override
     public void click(int position) {
-        System.out.println("tiklandi ="+position);
+       CharSequence option[]=new CharSequence[]{
+               "Open Profile",
+       }
     }
 }
