@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#07072C"
+    android:background="#0007072C"
     app:cardBackgroundColor="#15565C">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,15 +57,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.076" />
 
-        <ImageView
-            android:id="@+id/imageView"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_single_onlineimage"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:src="@drawable/redtrans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_single_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/red" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
