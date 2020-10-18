@@ -108,4 +108,14 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                "Open Profile",
        }
     }
+
+    @Override
+    public void clickOpenProfile(int position) {
+        
+    }
+
+    @Override
+    public void clickSendMessage(int position) {
+
+    }
 }

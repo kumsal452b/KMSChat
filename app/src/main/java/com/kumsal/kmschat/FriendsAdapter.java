@@ -103,9 +103,20 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
             if (onClickItemListener!=null){
                 int position=getAdapterPosition();
                 if (position!=RecyclerView.NO_POSITION){
-                    onClickItemListener.click(position);
+                    switch (menuItem.getItemId()){
+                        case 1:
+                            onClickItemListener.clickOpenProfile(position);
+                            break;
+                        case 2:
+                            onClickItemListener.clickSendMessage(position);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            return false;
         }
+
     }
 }
