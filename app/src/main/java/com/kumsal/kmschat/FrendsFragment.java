@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FrendsFragment extends Fragment{
+public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickItemListener {
     private View mMainView;
     private String mCurrent_user_id;
     private FirebaseAuth mAuth;
@@ -61,9 +61,8 @@ public class FrendsFragment extends Fragment{
                             values2=( HashMap<String,String>)snapshot.getValue();
                             object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"),values2.get("online"));
                             friendModdels.add(object);
-                            adapter=new FriendsAdapter(friendModdels,getContext());
-                            mFriendList.setAdapter(adapter);
                             adapter.notifyDataSetChanged();
+                            mFriendList.setAdapter(adapter);
                         }
 
                         @Override
@@ -96,10 +95,15 @@ public class FrendsFragment extends Fragment{
         mFriendList=mMainView.findViewById(R.id.friendFragmentsRecycler);
         mFriendList.setLayoutManager(new LinearLayoutManager(getContext()));
         mFriendList.setHasFixedSize(true);
-
+        adapter=new FriendsAdapter(friendModdels,getContext());
+        adapter.setOnClickItemListener(this);
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         WaitDialog.dismiss();
         return mMainView;
     }
 
+    @Override
+    public void click(int position) {
+        System.out.println("tiklandi ="+position);
+    }
 }

@@ -17,7 +17,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsViewHolder> {
     private List<FriendModdel> moddelList;
     private Context context;
+    private OnClickItemListener onClickItemListener;
 
+    public void setOnClickItemListener(OnClickItemListener onClickItemListener) {
+        this.onClickItemListener = onClickItemListener;
+    }
+
+    public interface OnClickItemListener{
+        void click(int position);
+    }
     public FriendsAdapter(List<FriendModdel> moddelList, Context context) {
         this.moddelList = moddelList;
         this.context = context;
@@ -51,7 +59,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
         return moddelList.size();
     }
 
-    class friendsViewHolder extends RecyclerView.ViewHolder{
+    class friendsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView date,displayName;
         public CircleImageView imageView;
 
@@ -62,6 +70,17 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
             displayName=itemView.findViewById(R.id.user_single_name);
             imageView=itemView.findViewById(R.id.user_single_imageview);
             checkImage=itemView.findViewById(R.id.user_single_onlineimage);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (onClickItemListener!=null){
+                int position=getAdapterPosition();
+                if (position!=RecyclerView.NO_POSITION){
+                    onClickItemListener.click(position);
+                }
+            }
         }
     }
 }
