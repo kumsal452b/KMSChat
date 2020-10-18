@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kongzue.dialog.v3.WaitDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionPagerAdapter mPagerAdapter;
     private TabLayout tabLayout1;
     private CircleImageView imageView;
-
+    private DatabaseReference mUserRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
+        mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
         mToolbar=findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("KMSChat");
@@ -61,8 +64,14 @@ public class MainActivity extends AppCompatActivity {
         if (user==null){
            startTostart();
         }else{
-
+            mUserRef.child("online").setValue("true");
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue("false");
     }
 
     private void startTostart() {
