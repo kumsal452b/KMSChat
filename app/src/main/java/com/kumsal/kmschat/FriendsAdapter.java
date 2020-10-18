@@ -39,6 +39,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
             moddel.setImageUrl("empty");
         }
         Picasso.get().load(moddel.getImageUrl()).into(holder.imageView);
+        if (moddel.getCheckIsOnline().equals("true")){
+            holder.checkImage.setImageResource(R.drawable.greentrans);
+        }else{
+            holder.checkImage.setImageResource(R.drawable.redtrans);
+        }
     }
 
     @Override
@@ -49,16 +54,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
     class friendsViewHolder extends RecyclerView.ViewHolder{
         public TextView date,displayName;
         public CircleImageView imageView;
-        public DatabaseReference mRef;
+
+        public CircleImageView checkImage;
         public friendsViewHolder(@NonNull View itemView) {
             super(itemView);
-
             date=itemView.findViewById(R.id.users_single_status);
             displayName=itemView.findViewById(R.id.user_single_name);
             imageView=itemView.findViewById(R.id.user_single_imageview);
-
-
-
+            checkImage=itemView.findViewById(R.id.user_single_onlineimage);
         }
     }
 }
