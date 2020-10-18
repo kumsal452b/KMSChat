@@ -59,13 +59,13 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 friendModdels.clear();
-                for (DataSnapshot get: snapshot.getChildren()){
+                for (final DataSnapshot get: snapshot.getChildren()){
                     values=( HashMap<String,String>)get.getValue();
                     mRef.child(get.getKey()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             values2=( HashMap<String,String>)snapshot.getValue();
-                            object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"),values2.get("online"));
+                            object=new FriendModdel(values.get("date"),values2.get("name"),values2.get("thumbalimage"),values2.get("online"),get.getKey());
                             friendModdels.add(object);
                             adapter.notifyDataSetChanged();
                             mFriendList.setAdapter(adapter);
@@ -120,7 +120,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                         switch (index){
                             case 0:
                                 Intent intent=new Intent(getContext(),ProfileActivity.class);
-                                intent.putExtra("ui",person.);
+                                intent.putExtra("ui",person.getUi());
                                 startActivity(intent);
                                 break;
                             case 1:
