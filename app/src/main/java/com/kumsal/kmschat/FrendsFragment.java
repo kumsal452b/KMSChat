@@ -125,6 +125,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                                 break;
                             case 1:
                                 Intent intent2=new Intent(getContext(),ChatActivity.class);
+                                intent2.putExtra("ui",mCurrent_user_id);
                                 startActivity(intent2);
                                 break;
                             default:
