@@ -15,7 +15,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
-        
+
         toolbar=findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
