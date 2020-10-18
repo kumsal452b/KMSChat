@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        WaitDialog.dismiss();
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mUserRef.child("online").setValue("false");
+        mAuth=FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser()!=null){
+            mUserRef.child("online").setValue("false");
+        }
     }
 
     private void startTostart() {
