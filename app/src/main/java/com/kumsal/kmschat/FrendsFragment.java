@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +23,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kongzue.dialog.interfaces.OnMenuItemClickListener;
+import com.kongzue.dialog.util.DialogSettings;
 import com.kongzue.dialog.util.view.ProgressView;
+import com.kongzue.dialog.v3.BottomMenu;
+import com.kongzue.dialog.v3.MessageDialog;
 import com.kongzue.dialog.v3.WaitDialog;
 
 import java.util.ArrayList;
@@ -97,6 +102,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
         mFriendList.setHasFixedSize(true);
         adapter=new FriendsAdapter(friendModdels,getContext());
         adapter.setOnClickItemListener(this);
+
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         WaitDialog.dismiss();
         return mMainView;
@@ -109,7 +115,26 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
 
     @Override
     public void clickOpenProfile(int position) {
-        System.out.println("open profile");
+        BottomMenu.build((AppCompatActivity) getContext())
+                .setMenuTextList(new String[]{"Profile","Send Messege"})
+                .setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public void onClick(String text, int index) {
+                        switch (index){
+                            case 0:
+                                System.out.println("Secim tamam");
+                                break;
+                            case 1:
+                                System.out.println("send");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                })
+                .setStyle(DialogSettings.STYLE.STYLE_IOS)
+                .setTheme(DialogSettings.THEME.DARK)
+                .show();
     }
 
     @Override

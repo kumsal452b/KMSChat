@@ -76,6 +76,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
             imageView=itemView.findViewById(R.id.user_single_imageview);
             checkImage=itemView.findViewById(R.id.user_single_onlineimage);
             itemView.setOnClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
         }
 
         @Override
