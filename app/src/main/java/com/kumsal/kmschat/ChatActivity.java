@@ -3,6 +3,7 @@ package com.kumsal.kmschat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,7 +18,9 @@ public class ChatActivity extends AppCompatActivity {
         UI=getIntent().getStringExtra("ui");
 
         toolbar=findViewById(R.id.chat_toolbar);
+        toolbar.setBackgroundColor(Color.GREEN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 }
