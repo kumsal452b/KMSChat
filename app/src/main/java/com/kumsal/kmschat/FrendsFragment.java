@@ -104,14 +104,12 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
 
     @Override
     public void click(int position) {
-       CharSequence option[]=new CharSequence[]{
-               "Open Profile",
-       }
+
     }
 
     @Override
     public void clickOpenProfile(int position) {
-        
+        System.out.println("open profile");
     }
 
     @Override
