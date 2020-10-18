@@ -43,7 +43,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
     private HashMap<String, String> values2;
 
     public FrendsFragment() {
-        // Required empty public constructor
+
     }
 
     @Override

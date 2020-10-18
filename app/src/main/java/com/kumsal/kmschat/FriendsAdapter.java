@@ -1,7 +1,10 @@
 package com.kumsal.kmschat;
 
 import android.content.Context;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +28,8 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
 
     public interface OnClickItemListener{
         void click(int position);
+        void clickOpenProfile(int position);
+        void clickSendMessage (int position);
     }
     public FriendsAdapter(List<FriendModdel> moddelList, Context context) {
         this.moddelList = moddelList;
@@ -59,7 +64,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
         return moddelList.size();
     }
 
-    class friendsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class friendsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         public TextView date,displayName;
         public CircleImageView imageView;
 
@@ -75,6 +80,26 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.friendsV
 
         @Override
         public void onClick(View view) {
+            if (onClickItemListener!=null){
+                int position=getAdapterPosition();
+                if (position!=RecyclerView.NO_POSITION){
+                    onClickItemListener.click(position);
+                }
+            }
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.setHeaderTitle("Select");
+            MenuItem openProfile=contextMenu.add(Menu.NONE,1,1,"Open Profile");
+            MenuItem sendMessage=contextMenu.add(Menu.NONE,2,2,"Send Message");
+            openProfile.setOnMenuItemClickListener(this);
+            sendMessage.setOnMenuItemClickListener(this);
+
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
             if (onClickItemListener!=null){
                 int position=getAdapterPosition();
                 if (position!=RecyclerView.NO_POSITION){
