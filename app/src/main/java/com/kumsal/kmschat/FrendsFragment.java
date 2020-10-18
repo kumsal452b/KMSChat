@@ -1,5 +1,6 @@
 package com.kumsal.kmschat;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -110,11 +111,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
 
     @Override
     public void click(int position) {
-
-    }
-
-    @Override
-    public void clickOpenProfile(int position) {
+        final FriendModdel person=friendModdels.get(position);
         BottomMenu.build((AppCompatActivity) getContext())
                 .setMenuTextList(new String[]{"Profile","Send Messege"})
                 .setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -122,19 +119,27 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                     public void onClick(String text, int index) {
                         switch (index){
                             case 0:
-                                System.out.println("Secim tamam");
+                                Intent intent=new Intent(getContext(),ProfileActivity.class);
+                                intent.putExtra("ui",person.);
+                                startActivity(intent);
                                 break;
                             case 1:
-                                System.out.println("send");
+                                Intent intent2=new Intent(getContext(),ChatActivity.class);
+                                startActivity(intent2);
                                 break;
                             default:
                                 break;
                         }
                     }
                 })
-                .setStyle(DialogSettings.STYLE.STYLE_IOS)
+                .setStyle(DialogSettings.STYLE.STYLE_KONGZUE)
                 .setTheme(DialogSettings.THEME.DARK)
                 .show();
+    }
+
+    @Override
+    public void clickOpenProfile(int position) {
+
     }
 
     @Override

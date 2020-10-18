@@ -6,11 +6,13 @@ public class FriendModdel{
     private String mDisplayName;
     private String imageUrl;
     private String checkIsOnline;
-    public FriendModdel(String date, String mDisplayName, String imageUrl, String checkIsOnline) {
+    private String ui;
+    public FriendModdel(String date, String mDisplayName, String imageUrl, String checkIsOnline,String UI) {
         Date = date;
         this.mDisplayName = mDisplayName;
         this.imageUrl = imageUrl;
         this.checkIsOnline=checkIsOnline;
+        this.ui=UI;
     }
 
     public String getDate() {
@@ -44,4 +46,5 @@ public class FriendModdel{
     public void setCheckIsOnline(String checkIsOnline) {
         this.checkIsOnline = checkIsOnline;
     }
+
 }
