@@ -43,7 +43,7 @@ import java.util.PriorityQueue;
 public class RequestFragment extends Fragment implements RequestFriendFragmentAdapter.OnItemClickListener {
 
     private RecyclerView recyclerView;
-    public static List<Users> personValue;
+    public  static List<Users> personValue;
     private static RequestFriendFragmentAdapter mAdapter;
     private static DatabaseReference mFriendDatabase;
     private static DatabaseReference mUsers;
@@ -66,7 +66,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 WaitDialog.show((AppCompatActivity) getContext(),"Please Wait");
-                personValue.clear();
+//                personValue.clear();
                 for (DataSnapshot data: snapshot.getChildren()){
                     String requestType=data.child("request_type").getValue()+"";
                     final String userKey=data.getKey();
@@ -155,6 +155,9 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                     mFriendRequestbeta.child(person.getUserID()).child(UID).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            personValue.remove(position);
+                                            mAdapter.notifyDataSetChanged();
+                                            recyclerView.setAdapter(mAdapter);
                                             Toast.makeText(context, "Succes", Toast.LENGTH_LONG).show();
                                             WaitDialog.dismiss();
                                         }
