@@ -42,7 +42,7 @@ import java.util.PriorityQueue;
 
 public class RequestFragment extends Fragment implements RequestFriendFragmentAdapter.OnItemClickListener {
 
-    private RecyclerView recyclerView;
+    private static RecyclerView recyclerView;
     public  static List<Users> personValue;
     private static RequestFriendFragmentAdapter mAdapter;
     private static DatabaseReference mFriendDatabase;
