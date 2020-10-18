@@ -9,5 +9,5 @@
         android:id="@+id/friendFragmentsRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1E88E5" />
+        android:background="#06090B" />
 </FrameLayout>
