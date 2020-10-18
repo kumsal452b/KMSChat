@@ -47,4 +47,11 @@ public class FriendModdel{
         this.checkIsOnline = checkIsOnline;
     }
 
+    public String getUi() {
+        return ui;
+    }
+
+    public void setUi(String ui) {
+        this.ui = ui;
+    }
 }
