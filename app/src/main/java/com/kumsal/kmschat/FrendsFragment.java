@@ -121,11 +121,14 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                             case 0:
                                 Intent intent=new Intent(getContext(),ProfileActivity.class);
                                 intent.putExtra("ui",person.getUi());
+                                intent.putExtra("un",person.getmDisplayName());
                                 startActivity(intent);
                                 break;
                             case 1:
                                 Intent intent2=new Intent(getContext(),ChatActivity.class);
                                 intent2.putExtra("ui",person.getUi());
+                                intent2.putExtra("un",person.getmDisplayName());
+                                intent2.putExtra("iu",person.getImageUrl());
                                 startActivity(intent2);
                                 break;
                             default:

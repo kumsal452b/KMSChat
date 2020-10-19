@@ -40,23 +40,14 @@ public class ChatActivity extends AppCompatActivity {
         WaitDialog.show(this,"Please Wait");
         imageView=findViewById(R.id.circle_app_toolbar_dark);
         textView=findViewById(R.id.textview_app_toolbar_dark);
-        mRefUsers.child(UI).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name=snapshot.child("name").getValue().toString();
-                String image=snapshot.child("thumbalimage").getValue().toString();
-                if (image.equals("") || image.equals(null)){
-                    image="emty";
-                }
-                textView.setText(name);
-                Picasso.get().load(image).into(imageView);
-                WaitDialog.dismiss();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        String name=getIntent().getStringExtra("un");
+        String image=getIntent().getStringExtra("iu");
+        if (image.equals("") || image.equals(null)){
+            image="emty";
+        }
+        textView.setText(name);
+        Picasso.get().load(image).into(imageView);
+        WaitDialog.dismiss();
     }
 }
