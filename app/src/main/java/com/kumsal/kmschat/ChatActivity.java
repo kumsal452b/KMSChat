@@ -44,8 +44,7 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         WaitDialog.show(this,"Please Wait");
         imageView=findViewById(R.id.chat_custom_imageview);
-        textView=findViewById(R.id.textview_app_toolbar_dark);
-
+        textView=findViewById(R.id.chat_custom_textview);
         String name=getIntent().getStringExtra("un");
         String image=getIntent().getStringExtra("iu");
         if (image.equals("") || image.equals(null)){
