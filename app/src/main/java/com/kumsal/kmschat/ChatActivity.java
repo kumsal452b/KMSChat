@@ -27,7 +27,6 @@ public class ChatActivity extends AppCompatActivity {
         UI=getIntent().getStringExtra("ui");
         mRefUsers= FirebaseDatabase.getInstance().getReference("Users");
         toolbar=findViewById(R.id.chat_toolbar);
-        toolbar.setBackgroundColor(Color.GREEN);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Error");
