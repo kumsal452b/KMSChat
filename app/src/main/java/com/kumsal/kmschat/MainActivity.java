@@ -1,10 +1,13 @@
 package com.kumsal.kmschat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +23,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.kongzue.dialog.v3.WaitDialog;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout1;
     private CircleImageView imageView;
     private DatabaseReference mUserRef;
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -56,8 +64,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        String currentDateandTime = sdf.format(new Date());
+        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: "+currentDateandTime);
         mUserRef.child("online").onDisconnect().setValue("false");
-        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: "+ServerValue.TIMESTAMP);
     }
 
     @Override
