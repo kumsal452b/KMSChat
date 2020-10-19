@@ -1,11 +1,15 @@
 package com.kumsal.kmschat;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +40,7 @@ public class ChatActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar=getSupportActionBar();
         getSupportActionBar().setTitle("");
         WaitDialog.show(this,"Please Wait");
         imageView=findViewById(R.id.circle_app_toolbar_dark);
@@ -49,5 +54,10 @@ public class ChatActivity extends AppCompatActivity {
         textView.setText(name);
         Picasso.get().load(image).into(imageView);
         WaitDialog.dismiss();
+
+        LayoutInflater inflater= (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View ation_bar_view=inflater.inflate(R.layout.chat_custom_bar,null);
+        actionBar.setCustomView(ation_bar_view);
+
     }
 }
