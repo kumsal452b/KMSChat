@@ -5,6 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#050303"
+    android:theme="@style/BaseTheme"
     app:subtitleTextColor="#1E88E5"
-    app:titleTextColor="#1E88E5"
-    android:theme="@style/BaseTheme"/>
+    app:titleTextColor="#1E88E5">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circle_app_toolbar_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#039BE5"
+        android:text="Deneme"
+        android:textSize="25dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/textview_app_toolbar_dark"/>
+
+</androidx.appcompat.widget.Toolbar>
