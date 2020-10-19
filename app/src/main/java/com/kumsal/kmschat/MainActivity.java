@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.kongzue.dialog.v3.WaitDialog;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mUserRef.child("online").onDisconnect().setValue("false");
+        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: "+ServerValue.TIMESTAMP);
     }
 
     @Override
