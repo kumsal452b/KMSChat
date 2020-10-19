@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         KMSChat nesne=new KMSChat();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mUserRef.child("online").onDisconnect().setValue("false");
     }
 
     @Override
