@@ -36,6 +36,7 @@ public class ChatActivity extends AppCompatActivity {
         toolbar=findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
         WaitDialog.show(this,"Please Wait");
         imageView=findViewById(R.id.circle_app_toolbar_dark);
         textView=findViewById(R.id.textview_app_toolbar_dark);
