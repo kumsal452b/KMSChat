@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/BaseTheme"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#050303"
-    android:fadeScrollbars="true"
-    android:hapticFeedbackEnabled="false"
-    android:theme="@style/BaseTheme"
     app:collapseIcon="@drawable/greentrans"
     app:subtitleTextColor="#1E88E5"
-    app:titleTextColor="#1E88E5"></androidx.appcompat.widget.Toolbar>
+    app:titleTextColor="#1E88E5" />
