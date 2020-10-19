@@ -19,11 +19,11 @@
         android:id="@+id/chat_custom_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="8dp"
         android:text="Name"
         android:textColor="#1E88E5"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,11 +31,11 @@
         android:id="@+id/chat_custom_online"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="2dp"
         android:text="online"
         android:textColor="#1E88E5"
-        android:textSize="13sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chat_custom_textview" />
 </androidx.constraintlayout.widget.ConstraintLayout>
