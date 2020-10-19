@@ -52,6 +52,7 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
+
         Picasso.get().load(image).into(imageView);
         WaitDialog.dismiss();
 

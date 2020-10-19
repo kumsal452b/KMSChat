@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circle_app_toolbar_dark"
+        android:id="@+id/chat_custom_imageview"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@mipmap/ic_launcher"
