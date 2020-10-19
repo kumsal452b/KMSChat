@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
         ActionBar actionBar=getSupportActionBar();
         getSupportActionBar().setTitle("");
         WaitDialog.show(this,"Please Wait");
-        imageView=findViewById(R.id.circle_app_toolbar_dark);
+        imageView=findViewById(R.id.chat_custom_imageview);
         textView=findViewById(R.id.textview_app_toolbar_dark);
 
         String name=getIntent().getStringExtra("un");
