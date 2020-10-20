@@ -31,9 +31,10 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
     private DatabaseReference mrefDatabase;
     private UsersAdaptar adapter;
     private List<Users> usersList;
-
+    public static boolean isActive=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isActive=true;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         toolbar=findViewById(R.id.user_appbar);
@@ -85,4 +86,9 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
         startActivity(profile_intent);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive=false;
+    }
 }
