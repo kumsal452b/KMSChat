@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         isActive=false;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(800);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

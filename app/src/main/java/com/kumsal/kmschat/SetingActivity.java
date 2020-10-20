@@ -138,6 +138,12 @@ public class SetingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        isActive=false;
     }
 
     @Override
