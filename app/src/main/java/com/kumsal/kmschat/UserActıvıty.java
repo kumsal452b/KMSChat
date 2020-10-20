@@ -60,11 +60,11 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
                     if (TextUtils.isEmpty(values.get("thumbalimage"))){
-                        user=new Users(values.get("name"),values.get("status"),"empty",data.getKey(),);
+                        user=new Users(values.get("name"),values.get("status"),"empty",data.getKey(),values.get("online"));
                     }else{
-                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),data.getKey());
+                        user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),data.getKey(),values.get("online"));
                     }
-                    String online=values.get("online");
+
                     usersList.add(user);
                 }
 //                adapter.notifyDataSetChanged();

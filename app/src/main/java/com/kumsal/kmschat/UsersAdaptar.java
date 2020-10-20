@@ -48,7 +48,11 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
         final Users users=userValue.get(position);
         holder.status.setText(users.getStatus());
-
+        if (users.getOnline().equals("true")){
+            holder.onlineImage.setImageResource(R.drawable.greentrans);
+        }else{
+            holder.onlineImage.setImageResource(R.drawable.redtrans);
+        }
         holder.name.setText(users.getName());
         Picasso.get().load(users.getImage()).placeholder(R.drawable.ic_baseline_supervised_user_circle_24).into(holder.imageView);
 
@@ -61,7 +65,7 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public CircleImageView imageView;
+        public CircleImageView imageView,onlineImage;
         public TextView name,status;
         public View view;
        public UserViewHolder(@NonNull View itemView) {
@@ -69,6 +73,7 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
            imageView=itemView.findViewById(R.id.user_single_imageview);
            name=itemView.findViewById(R.id.user_single_name);
            status=itemView.findViewById(R.id.users_single_status);
+           onlineImage=itemView.findViewById(R.id.user_single_onlineimage);
            view=itemView;
            view.setOnClickListener(this);
        }

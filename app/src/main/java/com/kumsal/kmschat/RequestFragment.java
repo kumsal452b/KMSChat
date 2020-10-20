@@ -79,7 +79,7 @@ public class RequestFragment extends Fragment implements RequestFriendFragmentAd
                                 String iUrl=snapshot.child("thumbalimage").getValue().toString();
                                 String name=snapshot.child("name").getValue().toString();
                                 String status=snapshot.child("status").getValue().toString();
-                                mUsers1=new Users(name,status,iUrl,userKey);
+                                mUsers1=new Users(name,status,iUrl,userKey,null);
                                 personValue.add(mUsers1);
                                 mAdapter.notifyDataSetChanged();
                                 recyclerView.setAdapter(mAdapter);
