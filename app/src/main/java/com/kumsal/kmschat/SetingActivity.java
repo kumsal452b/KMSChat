@@ -56,7 +56,7 @@ import id.zelory.compressor.Compressor;
 
 public class SetingActivity extends AppCompatActivity {
 
-
+    public static boolean isActive=false;
     private DatabaseReference mRefDatabase;
     private FirebaseUser mUser;
     private TextView name,status;
@@ -69,13 +69,16 @@ public class SetingActivity extends AppCompatActivity {
     private FirebaseStorage imageStorage = FirebaseStorage.getInstance();
     private StorageTask<UploadTask.TaskSnapshot> storageTask;
     private ValueEventListener dbListener;
+    private DatabaseReference mUserRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        isActive=true;
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid());
         mStorageRef= FirebaseStorage.getInstance().getReference("profile_images");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setings);
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
         String curentID=mUser.getUid();
         name=findViewById(R.id.seting_displayname);
         status=findViewById(R.id.seting_hi);
@@ -153,6 +156,20 @@ public class SetingActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive=false;
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (MainActivity.isActive!=true){
+            mUserRef.child("online").onDisconnect().setValue("false");
+        }
     }
 
     @Override
