@@ -11,26 +11,19 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TableLayout;
-import android.widget.Toast;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.kongzue.dialog.v3.WaitDialog;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static boolean isActive=false;
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private ViewPager mViewPager;
@@ -38,10 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout1;
     private CircleImageView imageView;
     private DatabaseReference mUserRef;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
 
+    protected void onCreate(Bundle savedInstanceState) {
+        isActive=true;
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         KMSChat nesne=new KMSChat();
         super.onCreate(savedInstanceState);
@@ -50,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
         mToolbar=findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("KMSChat");
         WaitDialog.show(this,"Please wait");
         imageView=findViewById(R.id.gfs);
         mViewPager=findViewById(R.id.main_pageview);
@@ -58,16 +52,11 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
         String currentDateandTime = sdf.format(new Date());
         mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: "+currentDateandTime);
         mUserRef.child("online").onDisconnect().setValue("false");
+        mUserRef.keepSynced(true);
     }
 
     @Override
@@ -84,9 +73,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mAuth=FirebaseAuth.getInstance();
-        if (mAuth.getCurrentUser()!=null){
+        isActive=false;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (UserActıvıty.isActive==true || SetingActivity.isActive==true){
+            System.out.println("Active activity");
+        }
+        else{
+            mAuth=FirebaseAuth.getInstance();
+            if (mAuth.getCurrentUser()!=null){
             mUserRef.child("online").setValue("false");
+
+            }
         }
     }
 
