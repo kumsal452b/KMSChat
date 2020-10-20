@@ -167,8 +167,10 @@ public class SetingActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if (MainActivity.isActive!=true){
+        if (MainActivity.isActive==false){
             mUserRef.child("online").onDisconnect().setValue("false");
+        }else{
+            System.out.println(MainActivity.isActive);
         }
     }
 
