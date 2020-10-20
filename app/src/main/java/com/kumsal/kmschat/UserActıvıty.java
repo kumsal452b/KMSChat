@@ -25,16 +25,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.OnClickListener {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private DatabaseReference mrefDatabase;
     private UsersAdaptar adapter;
     private List<Users> usersList;
+    private CircleImageView imageView;
     public static boolean isActive=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         isActive=true;
+        imageView=findViewById(R.id.user_single_onlineimage);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         toolbar=findViewById(R.id.user_appbar);
@@ -56,10 +60,11 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
                 for (DataSnapshot data:snapshot.getChildren()) {
                     values=(HashMap<String,String>)data.getValue();
                     if (TextUtils.isEmpty(values.get("thumbalimage"))){
-                        user=new Users(values.get("name"),values.get("status"),"empty",data.getKey());
+                        user=new Users(values.get("name"),values.get("status"),"empty",data.getKey(),);
                     }else{
                         user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),data.getKey());
                     }
+                    String online=values.get("online");
                     usersList.add(user);
                 }
 //                adapter.notifyDataSetChanged();

@@ -138,12 +138,6 @@ public class SetingActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        isActive=false;
     }
 
     @Override
@@ -168,16 +162,6 @@ public class SetingActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         isActive=false;
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (MainActivity.isActive==false){
-            mUserRef.child("online").onDisconnect().setValue("false");
-        }else{
-            System.out.println(MainActivity.isActive);
-        }
     }
 
     @Override

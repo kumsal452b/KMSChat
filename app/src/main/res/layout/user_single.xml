@@ -59,8 +59,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/user_single_onlineimage"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
             android:src="@drawable/redtrans"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
