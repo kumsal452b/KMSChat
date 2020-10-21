@@ -48,6 +48,10 @@ public class UsersAdaptar extends RecyclerView.Adapter<UsersAdaptar.UserViewHold
 
         final Users users=userValue.get(position);
         holder.status.setText(users.getStatus());
+        String online=users.getOnline();
+        if (online.equals("") || online.equals(null)){
+            users.setOnline("false");
+        }
         if (users.getOnline().equals("true")){
             holder.onlineImage.setImageResource(R.drawable.greentrans);
         }else{
