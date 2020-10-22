@@ -143,14 +143,27 @@ public class ChatActivity extends AppCompatActivity {
             DatabaseReference user_message_pushId=mRefRoot.child("message").child(ownUserId).child(clickUserId).push();
 
             String push_id=user_message_pushId.getKey();
-            
+
             Map messagingMap=new HashMap();
-            messagingMap.put(current_user_id+"/message",message2);
-            messagingMap.put(current_user_id+"/seen","false");
-            messagingMap.put(current_user_id+"/type","text");
-            messagingMap.put(current_user_id+"/time",ServerValue.TIMESTAMP);
 
+            messagingMap.put("message",message2);
+            messagingMap.put("seen","false");
+            messagingMap.put("type","text");
+            messagingMap.put("time",ServerValue.TIMESTAMP);
 
+            Map messageUserMap=new HashMap();
+
+            messageUserMap.put(ownUserId,messagingMap);
+            messageUserMap.put(clickUserId,messagingMap);
+
+            mRefRoot.child("messages").updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    if (error!=null){
+                        System.out.println(error.getMessage());
+                    }
+                }
+            });
         }
     }
 
