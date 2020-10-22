@@ -57,14 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         clickUserId=getIntent().getStringExtra("ui");
         message=findViewById(R.id.chat_message);
         addmessage=findViewById(R.id.chat_addmessage);
-        sendmessage=findViewById(R.id.char_sendButton);
-        btn=findViewById(R.id.chat_buttons);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        sendmessage=findViewById(R.id.char_sendButton);;
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();

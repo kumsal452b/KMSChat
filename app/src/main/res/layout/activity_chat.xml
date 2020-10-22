@@ -6,45 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ChatActivity">
 
-    <include layout="@layout/app_toolbar_dark" android:id="@+id/chat_toolbar"/>
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="413dp"
-        android:layout_height="54dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageButton
-            android:id="@+id/chat_addmessage"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/add_button" />
-
-        <TextView
-            android:id="@+id/chat_message"
-            android:layout_width="316dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:focusable="auto"
-            android:gravity="center_vertical"
-            android:hint="Add text to new message"
-            android:textDirection="firstStrongRtl"
-            android:textSize="17sp" />
-
-        <ImageButton
-            android:id="@+id/char_sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/send_button" />
-
-    </LinearLayout>
 
     <include
         android:id="@+id/include"
@@ -54,13 +16,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/chat_buttons"
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="60dp"
+        tools:layout_editor_absoluteY="148dp" />
+    <include layout="@layout/app_toolbar_dark" android:id="@+id/chat_toolbar"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
