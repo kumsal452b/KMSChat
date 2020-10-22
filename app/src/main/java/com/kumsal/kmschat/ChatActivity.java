@@ -28,7 +28,7 @@ public class ChatActivity extends AppCompatActivity {
     private String UI;
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
-    private DatabaseReference mRefUsers;
+    private DatabaseReference mRefRoot;
     private CircleImageView imageView;
     private TextView textView,onlineText;
 
@@ -44,7 +44,7 @@ public class ChatActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
-        mRefUsers= FirebaseDatabase.getInstance().getReference("Users");
+        mRefRoot= FirebaseDatabase.getInstance().getReference();
         toolbar=findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,7 +60,7 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
-        mRefUsers.child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
+        mRefRoot.child("Users").child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String online=snapshot.child("online").getValue()+"";
@@ -81,7 +81,17 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+        mRefRoot.child("Chat").child(ownUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         Picasso.get().load(image).into(imageView);
         WaitDialog.dismiss();
 
