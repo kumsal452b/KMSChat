@@ -56,12 +56,14 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String online=snapshot.child("online").getValue()+"";
+                String lastSeen=snapshot.child("lastSeen").
                 if (online.equals("true")){
                     textView.setText("Online");
                 }
                 else{
                     getTimeAgo timeAgo=new getTimeAgo();
-                    
+                    Long lastTime=Long.parseLong(lastSeen);
+                    String lastSeenTime=timeAgo.
                 }
             }
 
