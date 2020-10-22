@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.kongzue.dialog.v3.WaitDialog;
 import java.util.Date;
 
@@ -52,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        getTimeAgo timeAgo=new getTimeAgo();
-
-        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: ");
+        mUserRef.child("lastSeen").onDisconnect().setValue(ServerValue.TIMESTAMP);
         mUserRef.child("online").onDisconnect().setValue("false");
         mUserRef.keepSynced(true);
     }
