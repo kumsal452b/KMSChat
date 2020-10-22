@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -46,6 +47,8 @@ public class ChatActivity extends AppCompatActivity {
     private ImageButton addmessage, sendmessage;
     private TextView message;
     private ValueEventListener eventRoot;
+
+    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +58,13 @@ public class ChatActivity extends AppCompatActivity {
         message=findViewById(R.id.chat_message);
         addmessage=findViewById(R.id.chat_addmessage);
         sendmessage=findViewById(R.id.char_sendButton);
+        btn=findViewById(R.id.chat_buttons);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();
@@ -74,6 +83,12 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
+        addmessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         mRefRoot.child("Users").child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
