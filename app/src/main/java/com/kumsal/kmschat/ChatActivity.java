@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,11 +30,18 @@ public class ChatActivity extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private DatabaseReference mRefUsers;
     private CircleImageView imageView;
-    private TextView textView;
+    private TextView textView,onlineText;
 
+    private FirebaseAuth mAuth;
+    private String clickUserId;
+    private String ownUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth=FirebaseAuth.getInstance();
+        ownUserId=mAuth.getUid();
+        clickUserId=getIntent().getStringExtra("ui");
+
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
         mRefUsers= FirebaseDatabase.getInstance().getReference("Users");
@@ -45,7 +52,8 @@ public class ChatActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         WaitDialog.show(this,"Please Wait");
         imageView=findViewById(R.id.chat_custom_imageview);
-        textView=findViewById(R.id.chat_custom_textview);
+        textView=findViewById(R.id.chat_custom_name);
+        onlineText=findViewById(R.id.chat_custom_online);
         String name=getIntent().getStringExtra("un");
         String image=getIntent().getStringExtra("iu");
         if (image.equals("") || image.equals(null)){
@@ -58,13 +66,13 @@ public class ChatActivity extends AppCompatActivity {
                 String online=snapshot.child("online").getValue()+"";
                 String lastSeen=snapshot.child("lastSeen").getValue()+"";
                 if (online.equals("true")){
-                    textView.setText("Online");
+                    onlineText.setText("Online");
                 }
                 else{
                     getTimeAgo timeAgo=new getTimeAgo();
                     Long lastTime=Long.parseLong(lastSeen);
                     String lastSeenTime=getTimeAgo.getTimeAgo2(lastTime,getApplicationContext());
-                    textView.setText(lastSeenTime);
+                    onlineText.setText(lastSeenTime);
                 }
             }
 
