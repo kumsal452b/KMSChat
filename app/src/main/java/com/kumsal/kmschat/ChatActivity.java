@@ -57,6 +57,10 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String online=snapshot.child("online").getValue()+"";
                 if (online.equals("true")){
+                    textView.setText("Online");
+                }
+                else{
+                    getTimeAgo timeAgo=new getTimeAgo();
                     
                 }
             }
