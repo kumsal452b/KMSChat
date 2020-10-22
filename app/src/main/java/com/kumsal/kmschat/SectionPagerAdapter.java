@@ -16,13 +16,13 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
+            case 2:
                 RequestFragment requestFragment = new RequestFragment();
                 return requestFragment;
-            case 1:
+            case 0:
                 ChatFragments chatFragments = new ChatFragments();
                 return chatFragments;
-            case 2:
+            case 1:
                 FrendsFragment frendsFragment = new FrendsFragment();
                 return frendsFragment;
             default:
@@ -37,11 +37,11 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     }
     public CharSequence getPageTitle(int position){
         switch (position) {
-            case 0:
-                return "REQUEST";
-            case 1:
-                return "CHAT";
             case 2:
+                return "REQUEST";
+            case 0:
+                return "CHAT";
+            case 1:
                 return "FRIENDS";
             default:
                 return null;
