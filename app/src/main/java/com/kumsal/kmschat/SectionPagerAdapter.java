@@ -17,11 +17,9 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-
                 RequestFragment requestFragment = new RequestFragment();
                 return requestFragment;
             case 1:
-
                 ChatFragments chatFragments = new ChatFragments();
                 return chatFragments;
             case 2:
