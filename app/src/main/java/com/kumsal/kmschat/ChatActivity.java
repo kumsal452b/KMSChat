@@ -140,14 +140,14 @@ public class ChatActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(message2)){
             String current_user_id="messages/"+ownUserId+"/"+clickUserId;
             String chat_user_id="messages/"+clickUserId+"/"+ownUserId;
-
+            DatabaseReference user_message_pushId=mRefRoot.child("message").child(ownUserId).child(clickUserId)
             Map messagingMap=new HashMap();
             messagingMap.put(current_user_id+"/message",message2);
             messagingMap.put(current_user_id+"/seen","false");
             messagingMap.put(current_user_id+"/type","text");
             messagingMap.put(current_user_id+"/time",ServerValue.TIMESTAMP);
 
-            
+
         }
     }
 
