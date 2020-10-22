@@ -140,7 +140,10 @@ public class ChatActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(message2)){
             String current_user_id="messages/"+ownUserId+"/"+clickUserId;
             String chat_user_id="messages/"+clickUserId+"/"+ownUserId;
-            DatabaseReference user_message_pushId=mRefRoot.child("message").child(ownUserId).child(clickUserId)
+            DatabaseReference user_message_pushId=mRefRoot.child("message").child(ownUserId).child(clickUserId).push();
+
+            String push_id=user_message_pushId.getKey();
+            
             Map messagingMap=new HashMap();
             messagingMap.put(current_user_id+"/message",message2);
             messagingMap.put(current_user_id+"/seen","false");
