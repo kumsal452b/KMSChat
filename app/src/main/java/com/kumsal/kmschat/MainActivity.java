@@ -52,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-        String currentDateandTime = sdf.format(new Date());
-        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: "+currentDateandTime);
+        getTimeAgo timeAgo=new getTimeAgo();
+
+        mUserRef.child("lastSeen").onDisconnect().setValue("Last seen: ");
         mUserRef.child("online").onDisconnect().setValue("false");
         mUserRef.keepSynced(true);
     }
