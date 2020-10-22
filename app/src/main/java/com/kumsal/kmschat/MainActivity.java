@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("deger "+UI);
         if(!TextUtils.isEmpty(UI)){
             mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
+            mUserRef.child("lastSeen").onDisconnect().setValue(ServerValue.TIMESTAMP);
+            mUserRef.child("online").onDisconnect().setValue("false");
+            mUserRef.keepSynced(true);
         }
         mToolbar=findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
@@ -66,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
-        mUserRef.child("lastSeen").onDisconnect().setValue(ServerValue.TIMESTAMP);
-        mUserRef.child("online").onDisconnect().setValue("false");
-        mUserRef.keepSynced(true);
+
     }
 
     @Override
