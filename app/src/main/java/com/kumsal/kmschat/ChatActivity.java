@@ -31,6 +31,7 @@ public class ChatActivity extends AppCompatActivity {
     private DatabaseReference mRefUsers;
     private CircleImageView imageView;
     private TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,20 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
+        mRefUsers.child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String online=snapshot.child("online").getValue()+"";
+                if (online.equals("true")){
+                    
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         Picasso.get().load(image).into(imageView);
         WaitDialog.dismiss();
