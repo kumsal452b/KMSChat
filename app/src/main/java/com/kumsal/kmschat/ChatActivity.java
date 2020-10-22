@@ -40,6 +40,8 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String clickUserId;
     private String ownUserId;
+
+    private ValueEventListener eventRoot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        mRefRoot.child("Chat").child(ownUserId).addValueEventListener(new ValueEventListener() {
+       eventRoot=mRefRoot.child("Chat").child(ownUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Map chatAddMap=new HashMap();
@@ -100,7 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                 mRefRoot.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        
+
                     }
                 });
             }
@@ -117,5 +119,11 @@ public class ChatActivity extends AppCompatActivity {
         View ation_bar_view=inflater.inflate(R.layout.chat_custom_bar,null);
         actionBar.setCustomView(ation_bar_view);
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mRefRoot.removeEventListener(eventRoot);
     }
 }
