@@ -1,6 +1,7 @@
 package com.kumsal.kmschat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,9 +19,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.kongzue.dialog.v3.WaitDialog;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -84,7 +89,20 @@ public class ChatActivity extends AppCompatActivity {
         mRefRoot.child("Chat").child(ownUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map chatAddMap=new HashMap();
+                chatAddMap.put("seen",false);
+                chatAddMap.put("timestap", ServerValue.TIMESTAMP);
 
+                Map chatUserMap=new HashMap();
+                chatUserMap.put("Chat/"+ownUserId+"/"+clickUserId,chatAddMap);
+                chatUserMap.put("Chat/"+clickUserId+"/"+ownUserId,chatAddMap);
+
+                mRefRoot.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        
+                    }
+                });
             }
 
             @Override
