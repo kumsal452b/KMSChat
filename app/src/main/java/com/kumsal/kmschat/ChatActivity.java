@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -54,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
         message=findViewById(R.id.chat_message);
         addmessage=findViewById(R.id.chat_addmessage);
         sendmessage=findViewById(R.id.char_sendButton);
-        
+
         setContentView(R.layout.activity_chat);
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();
@@ -125,6 +126,23 @@ public class ChatActivity extends AppCompatActivity {
         View ation_bar_view=inflater.inflate(R.layout.chat_custom_bar,null);
         actionBar.setCustomView(ation_bar_view);
 
+        sendmessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage();
+            }
+        });
+    }
+
+    private void sendMessage() {
+        String message2=message.getText().toString();
+
+        if (!TextUtils.isEmpty(message2)){
+            String current_user_id="messages/"+ownUserId+"/"+clickUserId;
+            String chat_user_id="messages/"+clickUserId+"/"+ownUserId;
+
+            
+        }
     }
 
     @Override
@@ -133,4 +151,5 @@ public class ChatActivity extends AppCompatActivity {
         mRefRoot.removeEventListener(eventRoot);
 
     }
+
 }
