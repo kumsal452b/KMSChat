@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -41,6 +42,8 @@ public class ChatActivity extends AppCompatActivity {
     private String clickUserId;
     private String ownUserId;
 
+    private ImageButton addmessage, sendmessage;
+    private TextView message;
     private ValueEventListener eventRoot;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,6 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mRefRoot.removeEventListener(eventRoot);
-        
+
     }
 }

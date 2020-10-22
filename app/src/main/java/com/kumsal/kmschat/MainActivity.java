@@ -11,6 +11,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
     private CircleImageView imageView;
     private DatabaseReference mUserRef;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Override
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         isActive=true;
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        try {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        } catch (Exception e) {
+
+        }
         KMSChat nesne=new KMSChat();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
         mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
@@ -61,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        System.out.println("mainActivity on start calisti");
         super.onStart();
         FirebaseUser user=mAuth.getCurrentUser();
         if (user==null){
