@@ -125,5 +125,6 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mRefRoot.removeEventListener(eventRoot);
+        System.out.println("on stop devrede");
     }
 }
