@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -51,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         mAuth=FirebaseAuth.getInstance();
-        mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
+        String UI=mAuth.getUid();
+        System.out.println("deger "+UI);
+        if(!TextUtils.isEmpty(UI)){
+            mUserRef= FirebaseDatabase.getInstance().getReference("Users").child(mAuth.getUid());
+        }
         mToolbar=findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         WaitDialog.show(this,"Please wait");

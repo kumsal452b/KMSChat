@@ -76,12 +76,6 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
-        addmessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         mRefRoot.child("Users").child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
