@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ChatActivity">
+    tools:context=".ChatActivity"
+    android:background="#ADB2CF">
 
     <include layout="@layout/app_toolbar_dark" android:id="@+id/chat_toolbar"/>
 
@@ -33,14 +34,6 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/add_button" />
 
-        <TextView
-            android:id="@+id/chat_activity_message"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:hint="Add text to new message"
-            android:textSize="17sp" />
-
         <ImageButton
             android:id="@+id/char_activity_sendButton"
             android:layout_width="wrap_content"
@@ -49,4 +42,15 @@
             app:srcCompat="@drawable/send_button" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/chat_activity_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:hint="Add text to new message"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
