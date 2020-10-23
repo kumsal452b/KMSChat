@@ -32,6 +32,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+
 public class ChatActivity extends AppCompatActivity {
     private String UI;
     private Toolbar toolbar;
@@ -54,11 +55,13 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth=FirebaseAuth.getInstance();
         ownUserId=mAuth.getUid();
-        clickUserId=getIntent().getStringExtra("ui");
-        message=findViewById(R.id.chat_message);
-        addmessage=findViewById(R.id.chat_addmessage);
-        sendmessage=findViewById(R.id.char_sendButton);;
         setContentView(R.layout.activity_chat);
+
+        clickUserId=getIntent().getStringExtra("ui");
+        message=findViewById(R.id.chat_activity_message);
+        addmessage=findViewById(R.id.chat_activity_addmessage);
+        sendmessage=findViewById(R.id.char_activity_sendButton);;
+
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();
         toolbar=findViewById(R.id.chat_toolbar);
