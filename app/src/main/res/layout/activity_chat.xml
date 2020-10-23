@@ -34,6 +34,22 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/add_button" />
 
+        <EditText
+            android:id="@+id/chat_activity_message"
+            android:layout_width="307dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:forceHasOverlappingRendering="false"
+            android:gravity="center"
+            android:hint="Add new message"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="false"
+            android:singleLine="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageButton
             android:id="@+id/char_activity_sendButton"
             android:layout_width="wrap_content"
@@ -43,26 +59,5 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/chat_activity_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:hint="Add text to new message"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
