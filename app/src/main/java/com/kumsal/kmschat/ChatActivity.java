@@ -28,7 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.kongzue.dialog.v3.WaitDialog;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -52,12 +54,19 @@ public class ChatActivity extends AppCompatActivity {
 
     private Button btn;
     private RecyclerView mMessageList;
+
+    private List<Messages_Model> messagesList;
+    private Messages_adapter mAdapter;
+    private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth=FirebaseAuth.getInstance();
         ownUserId=mAuth.getUid();
         setContentView(R.layout.activity_chat);
+
+        messagesList=new ArrayList<>();
+        mAdapter=new Messages_adapter(messagesList);
 
         clickUserId=getIntent().getStringExtra("ui");
         message=findViewById(R.id.chat_activity_message);

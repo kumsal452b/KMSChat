@@ -30,7 +30,8 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
 
     @Override
     public void onBindViewHolder(@NonNull message_holder holder, int position) {
-
+        Messages_Model persom=messages_modelList.get(position);
+        holder.message.setText(persom.getMessage());
     }
 
     @Override
