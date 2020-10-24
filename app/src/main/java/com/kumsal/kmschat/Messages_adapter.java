@@ -22,7 +22,7 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 0; 
     }
 
     public class message_holder extends RecyclerView.ViewHolder{
