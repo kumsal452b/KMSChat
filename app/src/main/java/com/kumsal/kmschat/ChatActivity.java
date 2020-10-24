@@ -16,9 +16,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,6 +60,7 @@ public class ChatActivity extends AppCompatActivity {
     private List<Messages_Model> messagesList;
     private Messages_adapter mAdapter;
     private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +71,18 @@ public class ChatActivity extends AppCompatActivity {
         messagesList=new ArrayList<>();
         mAdapter=new Messages_adapter(messagesList);
 
+        recyclerView=findViewById(R.id.messaging_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(mAdapter);
+
         clickUserId=getIntent().getStringExtra("ui");
         message=findViewById(R.id.chat_activity_message);
         addmessage=findViewById(R.id.chat_activity_addmessage);
         sendmessage=findViewById(R.id.char_activity_sendButton);;
+
+        //This point database initial zone
+
 
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();
@@ -90,6 +101,7 @@ public class ChatActivity extends AppCompatActivity {
             image="emty";
         }
         textView.setText(name);
+        getAllMessages();
         mRefRoot.child("Users").child(getIntent().getStringExtra("ui")).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -146,6 +158,37 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendMessage();
+            }
+        });
+    }
+
+    private void getAllMessages() {
+        mRefRoot.child("messages").child(ownUserId).child(clickUserId).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Messages_Model model= (Messages_Model) snapshot.getValue(Messages_Model.class);
+                messagesList.add(model);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

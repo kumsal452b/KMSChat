@@ -1,9 +1,10 @@
 package com.kumsal.kmschat;
 
 public class Messages_Model {
-    private String message,time,type, seen;
-
-    public Messages_Model(String message, String time, String type, String seen) {
+    private String message,type;
+    private Long time;
+    private Boolean seen;
+    public Messages_Model(String message, Long time, String type, Boolean seen) {
         this.message = message;
         this.time = time;
         this.type = type;
@@ -18,11 +19,11 @@ public class Messages_Model {
         this.message = message;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
@@ -35,11 +36,11 @@ public class Messages_Model {
     }
 
 
-    public String getSeen() {
+    public Boolean getSeen() {
         return seen;
     }
 
-    public void setSeen(String seen) {
+    public void setSeen(Boolean seen) {
         this.seen = seen;
     }
 }
