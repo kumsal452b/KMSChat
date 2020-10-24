@@ -158,10 +158,10 @@ public class ChatActivity extends AppCompatActivity {
 
             Map messageUserMap=new HashMap();
 
-            messageUserMap.put(ownUserId,messagingMap);
-            messageUserMap.put(clickUserId,messagingMap);
+            messageUserMap.put(current_user_id+"/"+push_id,messagingMap);
+            messageUserMap.put(chat_user_id+"/"+push_id,messagingMap);
 
-            mRefRoot.child("messages").updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+            mRefRoot.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                     if (error!=null){
