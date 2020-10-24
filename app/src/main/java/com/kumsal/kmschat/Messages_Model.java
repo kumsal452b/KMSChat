@@ -1,13 +1,12 @@
 package com.kumsal.kmschat;
 
 public class Messages_Model {
-    private String message,time,type,from, seen;
+    private String message,time,type, seen;
 
-    public Messages_Model(String message, String time, String type, String from, String seen) {
+    public Messages_Model(String message, String time, String type, String seen) {
         this.message = message;
         this.time = time;
         this.type = type;
-        this.from = from;
         this.seen = seen;
     }
 
@@ -35,13 +34,6 @@ public class Messages_Model {
         this.type = type;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
 
     public String getSeen() {
         return seen;
