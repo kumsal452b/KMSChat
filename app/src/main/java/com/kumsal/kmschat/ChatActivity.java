@@ -166,7 +166,10 @@ public class ChatActivity extends AppCompatActivity {
         mRefRoot.child("messages").child(ownUserId).child(clickUserId).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Messages_Model model= (Messages_Model) snapshot.getValue(Messages_Model.class);
+                Messages_Model model;
+                HashMap<String,Object> values=(HashMap<String,Object>)snapshot.getValue();
+                model=new Messages_Model(values.get("message").toString(),Long.parseLong(values.get("time").toString()),values.get("type").toString(),
+                        Boolean.parseBoolean(values.get("seen").toString()));
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
             }
