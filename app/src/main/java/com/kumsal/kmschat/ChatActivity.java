@@ -169,7 +169,7 @@ public class ChatActivity extends AppCompatActivity {
                 Messages_Model model;
                 HashMap<String,Object> values=(HashMap<String,Object>)snapshot.getValue();
                 model=new Messages_Model(values.get("message").toString(),Long.parseLong(values.get("time").toString()),values.get("type").toString(),
-                        Boolean.parseBoolean(values.get("seen").toString()));
+                        Boolean.parseBoolean(values.get("seen").toString()),getIntent().getStringExtra("iu"));
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
             }

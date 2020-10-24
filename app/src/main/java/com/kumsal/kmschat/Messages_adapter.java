@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -32,6 +34,11 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
     public void onBindViewHolder(@NonNull message_holder holder, int position) {
         Messages_Model persom=messages_modelList.get(position);
         holder.message.setText(persom.getMessage());
+        try {
+            Picasso.get().load(persom.getImage()).placeholder(R.drawable.person).into(holder.imageView);
+        } catch (Exception e) {
+            Picasso.get().load("emty").placeholder(R.drawable.person).into(holder.imageView);
+        }
     }
 
     @Override

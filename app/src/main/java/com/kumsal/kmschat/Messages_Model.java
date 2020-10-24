@@ -4,11 +4,13 @@ public class Messages_Model {
     private String message,type;
     private Long time;
     private Boolean seen;
-    public Messages_Model(String message, Long time, String type, Boolean seen) {
+    private String image;
+    public Messages_Model(String message, Long time, String type, Boolean seen,String image) {
         this.message = message;
         this.time = time;
         this.type = type;
         this.seen = seen;
+        this.image=image;
     }
 
     public String getMessage() {
@@ -42,5 +44,13 @@ public class Messages_Model {
 
     public void setSeen(Boolean seen) {
         this.seen = seen;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
