@@ -47,7 +47,8 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
     private HashMap<String,String> values;
     private DatabaseReference mRef;
     private HashMap<String, String> values2;
-
+    private String ownimage;
+    private DatabaseReference mUserRef;
     public FrendsFragment() {
 
     }
@@ -104,7 +105,18 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
         mFriendList.setHasFixedSize(true);
         adapter=new FriendsAdapter(friendModdels,getContext());
         adapter.setOnClickItemListener(this);
+        mUserRef=FirebaseDatabase.getInstance().getReference(mCurrent_user_id);
+        mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ownimage=snapshot.child("thumbalimage").getValue().toString();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         mRef = FirebaseDatabase.getInstance().getReference().child("Users");
         WaitDialog.dismiss();
         return mMainView;
@@ -130,6 +142,7 @@ public class FrendsFragment extends Fragment implements FriendsAdapter.OnClickIt
                                 intent2.putExtra("ui",person.getUi());
                                 intent2.putExtra("un",person.getmDisplayName());
                                 intent2.putExtra("iu",person.getImageUrl());
+                                intent2.putExtra("ownui",ownimage);
                                 startActivity(intent2);
                                 break;
                             default:
