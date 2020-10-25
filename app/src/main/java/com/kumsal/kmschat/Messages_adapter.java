@@ -63,6 +63,12 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
         return messages_modelList.size();
     }
 
+    @Override
+    public void onViewDetachedFromWindow(@NonNull message_holder holder) {
+
+        super.onViewDetachedFromWindow(holder);
+    }
+
     public class message_holder extends RecyclerView.ViewHolder{
 
         TextView message,message2;
