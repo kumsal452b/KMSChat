@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
 
 
     private List<Messages_Model> messages_modelList;
-
+    private FirebaseAuth auth;
     public Messages_adapter(List<Messages_Model> messages_modelList) {
         this.messages_modelList = messages_modelList;
     }
@@ -33,12 +34,28 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
     @Override
     public void onBindViewHolder(@NonNull message_holder holder, int position) {
         Messages_Model persom=messages_modelList.get(position);
-        holder.message.setText(persom.getMessage());
-        try {
-            Picasso.get().load(persom.getImage()).placeholder(R.drawable.person).into(holder.imageView);
-        } catch (Exception e) {
-            Picasso.get().load("emty").placeholder(R.drawable.person).into(holder.imageView);
+        String currentUid=auth.getUid();
+        if (persom.getFrom().equals(currentUid)){
+            holder.message.setVisibility(View.INVISIBLE);
+            holder.imageView.setVisibility(View.INVISIBLE);
+            holder.message2.setText(persom.getMessage());
+            try {
+                Picasso.get().load(persom.getImage()).placeholder(R.drawable.person).into(holder.imageView2);
+            } catch (Exception e) {
+                Picasso.get().load("emty").placeholder(R.drawable.person).into(holder.imageView2);
+            }
+
+        }else{
+            holder.message2.setVisibility(View.INVISIBLE);
+            holder.imageView2.setVisibility(View.INVISIBLE);
+            holder.message.setText(persom.getMessage());
+            try {
+                Picasso.get().load(persom.getImage()).placeholder(R.drawable.person).into(holder.imageView);
+            } catch (Exception e) {
+                Picasso.get().load("emty").placeholder(R.drawable.person).into(holder.imageView);
+            }
         }
+
     }
 
     @Override
@@ -48,12 +65,15 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
 
     public class message_holder extends RecyclerView.ViewHolder{
 
-        TextView message;
-        CircleImageView imageView;
+        TextView message,message2;
+        CircleImageView imageView,imageView2;
         public message_holder(@NonNull View itemView) {
             super(itemView);
             message=itemView.findViewById(R.id.message_text_layout);
             imageView=itemView.findViewById(R.id.message_image_layout);
+            message2=itemView.findViewById(R.id.message_text_layout2);
+            imageView2=itemView.findViewById(R.id.message_image_layout2);
+            auth=FirebaseAuth.getInstance();
         }
     }
 }
