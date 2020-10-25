@@ -61,6 +61,7 @@ public class ChatActivity extends AppCompatActivity {
     private Messages_adapter mAdapter;
     private RecyclerView recyclerView;
 
+    private LinearLayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,9 +71,10 @@ public class ChatActivity extends AppCompatActivity {
 
         messagesList=new ArrayList<>();
         mAdapter=new Messages_adapter(messagesList);
-
+        layoutManager=new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
         recyclerView=findViewById(R.id.messaging_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mAdapter);
 
