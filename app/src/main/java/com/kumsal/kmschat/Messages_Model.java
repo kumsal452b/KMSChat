@@ -5,14 +5,15 @@ public class Messages_Model {
     private Long time;
     private Boolean seen;
     private String image;
-    private String from;
-    public Messages_Model(String message, Long time, String type, Boolean seen,String image,String from) {
+    private String from,ownImage;
+    public Messages_Model(String message, Long time, String type, Boolean seen,String image,String from,String ownImage) {
         this.message = message;
         this.time = time;
         this.type = type;
         this.seen = seen;
         this.image=image;
         this.from=from;
+        this.ownImage=ownImage;
     }
 
     public String getMessage() {
@@ -62,5 +63,13 @@ public class Messages_Model {
 
     public void setFrom(String from) {
         this.from = from;
+    }
+
+    public String getOwnImage() {
+        return ownImage;
+    }
+
+    public void setOwnImage(String ownImage) {
+        this.ownImage = ownImage;
     }
 }
