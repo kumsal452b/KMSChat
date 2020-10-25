@@ -40,7 +40,7 @@ public class Messages_adapter  extends RecyclerView.Adapter<Messages_adapter.mes
             holder.imageView.setVisibility(View.INVISIBLE);
             holder.message2.setText(persom.getMessage());
             try {
-                Picasso.get().load(persom.getImage()).placeholder(R.drawable.person).into(holder.imageView2);
+                Picasso.get().load(persom.getOwnImage()).placeholder(R.drawable.person).into(holder.imageView2);
             } catch (Exception e) {
                 Picasso.get().load("emty").placeholder(R.drawable.person).into(holder.imageView2);
             }

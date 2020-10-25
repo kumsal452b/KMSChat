@@ -175,7 +175,8 @@ public class ChatActivity extends AppCompatActivity {
                     from=values.get("from").toString();
                 }
                 model=new Messages_Model(values.get("message").toString(),Long.parseLong(values.get("time").toString()),values.get("type").toString(),
-                        Boolean.parseBoolean(values.get("seen").toString()),getIntent().getStringExtra("iu"),from);
+                        Boolean.parseBoolean(values.get("seen").toString()),getIntent().getStringExtra("iu"),from,
+                        getIntent().getStringExtra("ownui"));
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
             }
