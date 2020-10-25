@@ -64,7 +64,6 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
                     }else{
                         user=new Users(values.get("name"),values.get("status"),values.get("thumbalimage"),data.getKey(),values.get("online"));
                     }
-
                     usersList.add(user);
                 }
 //                adapter.notifyDataSetChanged();
@@ -75,7 +74,7 @@ public class UserActıvıty extends AppCompatActivity implements UsersAdaptar.On
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(UserActıvıty.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
