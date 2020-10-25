@@ -168,8 +168,14 @@ public class ChatActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Messages_Model model;
                 HashMap<String,Object> values=(HashMap<String,Object>)snapshot.getValue();
+                String from;
+                if(TextUtils.isEmpty(values.get("from").toString())){
+                    from="emty";
+                }else{
+                    from=values.get("from").toString();
+                }
                 model=new Messages_Model(values.get("message").toString(),Long.parseLong(values.get("time").toString()),values.get("type").toString(),
-                        Boolean.parseBoolean(values.get("seen").toString()),getIntent().getStringExtra("iu"));
+                        Boolean.parseBoolean(values.get("seen").toString()),getIntent().getStringExtra("iu"),from);
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
             }
@@ -212,12 +218,11 @@ public class ChatActivity extends AppCompatActivity {
             messagingMap.put("seen","false");
             messagingMap.put("type","text");
             messagingMap.put("time",ServerValue.TIMESTAMP);
-
+            messagingMap.put("from",ownUserId);
             Map messageUserMap=new HashMap();
-
             messageUserMap.put(current_user_id+"/"+push_id,messagingMap);
             messageUserMap.put(chat_user_id+"/"+push_id,messagingMap);
-
+                message.setText("");
             mRefRoot.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
                 @Override
                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
