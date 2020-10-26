@@ -63,6 +63,7 @@ public class ChatActivity extends AppCompatActivity {
     private Messages_adapter mAdapter;
     private RecyclerView recyclerView;
     private static int TOTAL_ITEMS_TO_LOADS=10;
+    private static int BOTTOM_CURRENT_LINE=1;
     private int pageCurrent=1;
 
     private LinearLayoutManager layoutManager;
@@ -173,10 +174,16 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 messagesList.clear();
-                getAllMessages();
+                getAllMoreMessages();
                 pageCurrent++;
+                BOTTOM_CURRENT_LINE+=7;
             }
         });
+    }
+
+    private void getAllMoreMessages() {
+        DatabaseReference mMessageRef= mRefRoot.child("messages").child(ownUserId).child(clickUserId);
+        Query messageQuery=mMessageRef.limitToLast(pageCurrent*TOTAL_ITEMS_TO_LOADS);
     }
 
     private void getAllMessages() {
@@ -200,7 +207,10 @@ public class ChatActivity extends AppCompatActivity {
                         getIntent().getStringExtra("ownui"));
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(messagesList.size()-1);
+                if (messagesList.size()<=BOTTOM_CURRENT_LINE){
+                    BOTTOM_CURRENT_LINE=messagesList.size()+1;
+                }
+                recyclerView.scrollToPosition(messagesList.size()-BOTTOM_CURRENT_LINE);
                 refreshLayout.setRefreshing(false);
             }
 
