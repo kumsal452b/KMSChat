@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -61,8 +62,11 @@ public class ChatActivity extends AppCompatActivity {
     private List<Messages_Model> messagesList;
     private Messages_adapter mAdapter;
     private RecyclerView recyclerView;
+    private static int TOTAL_ITEMS_TO_LOADS=10;
+    private int pageCurrent=0;
 
     private LinearLayoutManager layoutManager;
+    private SwipeRefreshLayout refreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +90,8 @@ public class ChatActivity extends AppCompatActivity {
 
         //This point database initial zone
 
+        //This point swap refresh layout ini
+        refreshLayout=findViewById(R.id.messaging_swipeRefresh);
 
         UI=getIntent().getStringExtra("ui");
         mRefRoot= FirebaseDatabase.getInstance().getReference();
@@ -163,12 +169,17 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                
+            }
+        });
     }
 
     private void getAllMessages() {
         DatabaseReference mMessageRef= mRefRoot.child("messages").child(ownUserId).child(clickUserId);
-        Query messageQuery=mMessageRef.limitToLast(10);
-
+        Query messageQuery=mMessageRef.limitToLast(TOTAL_ITEMS_TO_LOADS);
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
