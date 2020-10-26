@@ -71,6 +71,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private int itemPosition=0;
     private String lastKey;
+    private String prevKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +178,8 @@ public class ChatActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                messagesList.clear();
+//                messagesList.clear();
+                itemPosition=0;
                 getAllMoreMessages();
                 pageCurrent++;
                 BOTTOM_CURRENT_LINE += 7;
@@ -188,7 +190,7 @@ public class ChatActivity extends AppCompatActivity {
     private void getAllMoreMessages() {
         DatabaseReference mMessageRef = mRefRoot.child("messages").child(ownUserId).child(clickUserId);
 
-        Query messageQuery = mMessageRef.orderByKey().endAt("-MKWBPenSHSbT_ABe1dC").limitToLast(10);
+        Query messageQuery = mMessageRef.orderByKey().endAt(lastKey).limitToLast(10);
 
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -200,7 +202,6 @@ public class ChatActivity extends AppCompatActivity {
                 model = new Messages_Model(values.get("message").toString(), Long.parseLong(values.get("time").toString()), values.get("type").toString(),
                         Boolean.parseBoolean(values.get("seen").toString()), getIntent().getStringExtra("iu"), from,
                         getIntent().getStringExtra("ownui"));
-
                 messagesList.add(itemPosition++,model);
                 if (itemPosition==1){
                     String messageKey=snapshot.getKey();
@@ -257,7 +258,7 @@ public class ChatActivity extends AppCompatActivity {
                     String messageKey=snapshot.getKey();
                     lastKey=messageKey;
                 }
-                messagesList.add(itemPosition,model);
+                messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(messagesList.size() - 1);
                 refreshLayout.setRefreshing(false);
