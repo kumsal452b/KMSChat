@@ -172,7 +172,9 @@ public class ChatActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                messagesList.clear();
+                getAllMessages();
+                pageCurrent++;
             }
         });
     }
@@ -199,6 +201,7 @@ public class ChatActivity extends AppCompatActivity {
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(messagesList.size()-1);
+                refreshLayout.setRefreshing(false);
             }
 
             @Override
