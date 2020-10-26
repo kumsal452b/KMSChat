@@ -181,6 +181,7 @@ public class ChatActivity extends AppCompatActivity {
                         getIntent().getStringExtra("ownui"));
                 messagesList.add(model);
                 mAdapter.notifyDataSetChanged();
+                recyclerView.scrollToPosition(messagesList.size()-1);
             }
 
             @Override
