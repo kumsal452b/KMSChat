@@ -200,7 +200,12 @@ public class ChatActivity extends AppCompatActivity {
                 model = new Messages_Model(values.get("message").toString(), Long.parseLong(values.get("time").toString()), values.get("type").toString(),
                         Boolean.parseBoolean(values.get("seen").toString()), getIntent().getStringExtra("iu"), from,
                         getIntent().getStringExtra("ownui"));
+
                 messagesList.add(itemPosition++,model);
+                if (itemPosition==1){
+                    String messageKey=snapshot.getKey();
+                    lastKey=messageKey;
+                }
                 mAdapter.notifyDataSetChanged();
                 if (messagesList.size() <= BOTTOM_CURRENT_LINE) {
                     BOTTOM_CURRENT_LINE = messagesList.size() + 1;
@@ -250,8 +255,9 @@ public class ChatActivity extends AppCompatActivity {
                 itemPosition++;
                 if (itemPosition==1){
                     String messageKey=snapshot.getKey();
+                    lastKey=messageKey;
                 }
-                messagesList.add(model);
+                messagesList.add(itemPosition,model);
                 mAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(messagesList.size() - 1);
                 refreshLayout.setRefreshing(false);
