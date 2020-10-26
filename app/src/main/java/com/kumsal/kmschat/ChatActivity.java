@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.kongzue.dialog.v3.WaitDialog;
@@ -165,7 +166,10 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void getAllMessages() {
-        mRefRoot.child("messages").child(ownUserId).child(clickUserId).addChildEventListener(new ChildEventListener() {
+        DatabaseReference mMessageRef= mRefRoot.child("messages").child(ownUserId).child(clickUserId);
+        Query messageQuery=mMessageRef.limitToLast(10);
+
+        messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 Messages_Model model;
