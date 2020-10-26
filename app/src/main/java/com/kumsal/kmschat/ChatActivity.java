@@ -63,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
     private Messages_adapter mAdapter;
     private RecyclerView recyclerView;
     private static int TOTAL_ITEMS_TO_LOADS=10;
-    private int pageCurrent=0;
+    private int pageCurrent=1;
 
     private LinearLayoutManager layoutManager;
     private SwipeRefreshLayout refreshLayout;
@@ -172,14 +172,16 @@ public class ChatActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                
+
             }
         });
     }
 
     private void getAllMessages() {
+
         DatabaseReference mMessageRef= mRefRoot.child("messages").child(ownUserId).child(clickUserId);
-        Query messageQuery=mMessageRef.limitToLast(TOTAL_ITEMS_TO_LOADS);
+        Query messageQuery=mMessageRef.limitToLast(pageCurrent*TOTAL_ITEMS_TO_LOADS);
+
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
