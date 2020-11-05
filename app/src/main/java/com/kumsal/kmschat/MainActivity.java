@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout1=findViewById(R.id.main_tabs_layout);
         tabLayout1.setupWithViewPager(mViewPager);
+        tabLayout1.getTabAt(1).setIcon(R.drawable.home);
 
     }
 
